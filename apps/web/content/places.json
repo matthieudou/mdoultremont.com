@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Indonesia",
+    "country": "Indonesia",
+    "visitedAt": "",
+    "description": "The date and story will be added later.",
+    "published": true,
+    "order": 1
+  },
+  {
+    "name": "Dolomites",
+    "country": "Italy",
+    "visitedAt": "",
+    "description": "The date and story will be added later.",
+    "published": true,
+    "order": 2
+  },
+  {
+    "name": "Norway",
+    "country": "Norway",
+    "visitedAt": "",
+    "description": "The date and story will be added later.",
+    "published": true,
+    "order": 3
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "endOfLine": "lf",
+  "semi": false,
+  "singleQuote": false,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 80,
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    ".output/**",
+    ".spacetimedb-data/**",
+    ".tanstack/**",
+    "**/dist/**",
+    "**/node_modules/**",
+    "apps/web/src/routeTree.gen.ts",
+    "coverage/**",
+    "pnpm-lock.yaml"
+  ]
+}

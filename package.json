@@ -1,0 +1,25 @@
+{
+  "name": "mdoultremont.com",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@11.22.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": "https://github.com/matthieudou/mdoultremont.com.git",
+  "scripts": {
+    "build": "pnpm --filter @mdoultremont/portfolio build",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck",
+    "dev": "pnpm --filter @mdoultremont/portfolio dev",
+    "deploy": "pnpm --filter @mdoultremont/portfolio deploy",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "lint": "pnpm --filter @mdoultremont/portfolio lint",
+    "typecheck": "pnpm --filter @mdoultremont/portfolio typecheck"
+  },
+  "devDependencies": {
+    "oxfmt": "^0.64.0",
+    "oxlint": "^1.79.0",
+    "typescript": "^6.0.2"
+  }
+}

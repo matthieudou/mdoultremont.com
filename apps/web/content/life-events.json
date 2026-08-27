@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Became a dad",
+    "eventAt": "",
+    "location": "",
+    "description": "More on this chapter later.",
+    "published": true,
+    "order": 1
+  },
+  {
+    "title": "Graduated from Le Wagon",
+    "eventAt": "",
+    "location": "Brussels, Belgium",
+    "description": "The date and longer story will be added later.",
+    "published": true,
+    "order": 2
+  }
+]

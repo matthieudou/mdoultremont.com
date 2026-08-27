@@ -1,0 +1,230 @@
+media:
+  input: apps/web/public
+  output: /
+
+content:
+  - name: profile
+    label: Profile and contact
+    type: file
+    path: apps/web/content/profile.json
+    format: json
+    operations:
+      delete: false
+    fields:
+      - { name: name, label: Full name, type: string, required: true }
+      - { name: firstName, label: First name, type: string, required: true }
+      - { name: lastName, label: Last name, type: string, required: true }
+      - { name: email, label: Email, type: string, required: true }
+      - { name: location, label: Location, type: string, required: true }
+      - { name: linkedin, label: LinkedIn URL, type: string, required: true }
+      - name: professionalPortrait
+        label: Professional portrait
+        type: image
+        options:
+          input: apps/web/public/media/profile
+          output: /media/profile
+      - name: photographyPortrait
+        label: Photography portrait
+        type: image
+        options:
+          input: apps/web/public/media/profile
+          output: /media/profile
+      - {
+          name: available,
+          label: Available for work,
+          type: boolean,
+          default: true,
+        }
+      - { name: availabilityLabel, label: Availability label, type: string }
+      - { name: professionalEyebrow, label: Professional eyebrow, type: string }
+      - name: professionalIntroduction
+        label: Professional introduction
+        type: text
+        required: true
+
+  - name: timeline
+    label: Professional timeline
+    type: file
+    path: apps/web/content/experiences.json
+    format: json
+    list: true
+    operations:
+      delete: false
+    fields:
+      - {
+          name: company,
+          label: Company or milestone,
+          type: string,
+          required: true,
+        }
+      - { name: role, label: Role, type: string, required: true }
+      - { name: period, label: Displayed period, type: string, required: true }
+      - { name: startDate, label: Start date, type: date }
+      - { name: endDate, label: End date, type: date }
+      - name: accent
+        label: Accent colour
+        type: select
+        required: true
+        options:
+          values: [blue, lilac, orange, lime]
+      - { name: summary, label: Summary, type: text, required: true }
+      - { name: prompt, label: Longer story, type: text }
+      - { name: published, label: Published, type: boolean, default: true }
+      - { name: order, label: Display order, type: number, required: true }
+
+  - name: pageCopy
+    label: Page copy
+    type: file
+    path: apps/web/content/pages.json
+    format: json
+    operations:
+      delete: false
+    fields:
+      - {
+          name: professionalStatement,
+          label: Professional statement,
+          type: text,
+        }
+      - name: professionalHeroImage
+        label: Professional hero image
+        type: image
+        options:
+          input: apps/web/public/media/photography
+          output: /media/photography
+      - { name: experienceEyebrow, label: Experience eyebrow, type: string }
+      - { name: experienceTitle, label: Experience title, type: string }
+      - {
+          name: experienceIntroduction,
+          label: Experience introduction,
+          type: text,
+        }
+      - { name: nextChapterEyebrow, label: Next chapter eyebrow, type: string }
+      - { name: nextChapterTitle, label: Next chapter title, type: string }
+      - name: nextChapterImage
+        label: Next chapter image
+        type: image
+        options:
+          input: apps/web/public/media/photography
+          output: /media/photography
+      - { name: photographyEyebrow, label: Photography eyebrow, type: string }
+      - { name: photographyTitle, label: Photography title, type: string }
+      - {
+          name: photographyIntroduction,
+          label: Photography introduction,
+          type: text,
+        }
+      - { name: personalEyebrow, label: Personal eyebrow, type: string }
+      - { name: personalTitle, label: Personal title, type: string }
+      - { name: personalIntroduction, label: Personal introduction, type: text }
+      - {
+          name: personalTimelineEyebrow,
+          label: Personal timeline eyebrow,
+          type: string,
+        }
+      - {
+          name: personalTimelineTitle,
+          label: Personal timeline title,
+          type: string,
+        }
+      - {
+          name: personalTimelineIntroduction,
+          label: Personal timeline introduction,
+          type: text,
+        }
+      - { name: familyTitle, label: Family title, type: string }
+      - { name: familyIntroduction, label: Family introduction, type: text }
+      - { name: flightTitle, label: Flight title, type: string }
+      - { name: cookingTitle, label: Cooking title, type: string }
+
+  - name: photography
+    label: Photography
+    type: file
+    path: apps/web/content/photography.json
+    format: json
+    list: true
+    operations:
+      delete: false
+    fields:
+      - name: src
+        label: Photograph
+        type: image
+        required: true
+        options:
+          input: apps/web/public/media/photography
+          output: /media/photography
+      - { name: title, label: Title, type: string, required: true }
+      - { name: location, label: Location, type: string, required: true }
+      - { name: published, label: Published, type: boolean, default: true }
+      - { name: order, label: Display order, type: number, required: true }
+
+  - name: places
+    label: Places visited
+    type: file
+    path: apps/web/content/places.json
+    format: json
+    list: true
+    operations:
+      delete: false
+    fields:
+      - { name: name, label: Place, type: string, required: true }
+      - { name: country, label: Country, type: string, required: true }
+      - { name: visitedAt, label: Visit date, type: date }
+      - { name: description, label: Description, type: text }
+      - { name: published, label: Published, type: boolean, default: true }
+      - { name: order, label: Display order, type: number, required: true }
+
+  - name: lifeEvents
+    label: Life events
+    type: file
+    path: apps/web/content/life-events.json
+    format: json
+    list: true
+    operations:
+      delete: false
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: eventAt, label: Date, type: date }
+      - { name: location, label: Location, type: string }
+      - { name: description, label: Description, type: text }
+      - { name: published, label: Published, type: boolean, default: true }
+      - { name: order, label: Display order, type: number, required: true }
+
+  - name: flights
+    label: Flights
+    type: file
+    path: apps/web/content/flights.json
+    format: json
+    list: true
+    operations:
+      delete: false
+    fields:
+      - { name: name, label: Flight name, type: string, required: true }
+      - { name: flownAt, label: Date, type: date, required: true }
+      - { name: launchName, label: Launch, type: string, required: true }
+      - {
+          name: distanceMeters,
+          label: Distance in metres,
+          type: number,
+          required: true,
+        }
+      - {
+          name: durationSeconds,
+          label: Duration in seconds,
+          type: number,
+          required: true,
+        }
+      - {
+          name: maxAltitudeMeters,
+          label: Maximum altitude in metres,
+          type: number,
+        }
+      - { name: maxSpeedKph, label: Maximum speed in km/h, type: number }
+      - name: trace
+        label: GPX or IGC trace
+        type: file
+        options:
+          input: apps/web/public/media/flights
+          output: /media/flights
+          extensions: [gpx, igc]
+      - { name: published, label: Published, type: boolean, default: true }
+      - { name: order, label: Display order, type: number, required: true }

@@ -1,0 +1,14 @@
+{
+  "name": "Matthieu d'Oultremont",
+  "firstName": "Matthieu",
+  "lastName": "d'Oultremont",
+  "email": "matthieu@doultremont.me",
+  "location": "Brussels, Belgium",
+  "linkedin": "https://www.linkedin.com/in/mdoultremont/",
+  "professionalPortrait": "/media/profile/matthieu-portrait.png",
+  "photographyPortrait": "/media/profile/matthieu-camera.png",
+  "available": true,
+  "availabilityLabel": "Available for work",
+  "professionalEyebrow": "Software developer · Brussels",
+  "professionalIntroduction": "I build thoughtful software with product-minded teams. I care about the details, the people using them, and the people building them."
+}

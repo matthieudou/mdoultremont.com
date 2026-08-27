@@ -1,0 +1,42 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error"
+  },
+  "plugins": [
+    "import",
+    "jsx-a11y",
+    "node",
+    "oxc",
+    "promise",
+    "react",
+    "typescript",
+    "unicorn",
+    "vitest"
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2024": true
+  },
+  "ignorePatterns": [
+    ".output/**",
+    ".spacetimedb-data/**",
+    ".tanstack/**",
+    "**/dist/**",
+    "**/node_modules/**",
+    "apps/web/src/routeTree.gen.ts",
+    "coverage/**"
+  ],
+  "rules": {
+    "promise/always-return": "off",
+    "react/exhaustive-effect-dependencies": "off",
+    "react/preserve-manual-memoization": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/refs": "off",
+    "react/set-state-in-effect": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "unicorn/no-array-fill-with-reference-type": "off"
+  }
+}

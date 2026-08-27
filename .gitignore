@@ -1,0 +1,26 @@
+.DS_Store
+node_modules
+
+# Build output
+.output
+.tanstack
+.vinxi
+.wrangler
+build
+coverage
+dist
+dist-ssr
+*.tsbuildinfo
+__unconfig*
+
+# Tool caches and local state
+.spacetimedb-data
+playwright-report
+test-results
+todos.json
+
+# Local configuration and secrets
+.env*
+!.env.example
+*.local
+*.local.*

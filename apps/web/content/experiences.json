@@ -1,0 +1,50 @@
+[
+  {
+    "company": "Atlassian",
+    "role": "Software developer",
+    "period": "Most recent",
+    "startDate": "",
+    "endDate": "",
+    "accent": "blue",
+    "summary": "Building product with a large, distributed engineering team.",
+    "prompt": "Projects, responsibilities and dates to add with Matthieu.",
+    "published": true,
+    "order": 1
+  },
+  {
+    "company": "Cycle",
+    "role": "Software developer",
+    "period": "Previously",
+    "startDate": "",
+    "endDate": "",
+    "accent": "lilac",
+    "summary": "Working close to product in a fast-moving software company.",
+    "prompt": "Projects, responsibilities and dates to add with Matthieu.",
+    "published": true,
+    "order": 2
+  },
+  {
+    "company": "Kiosk",
+    "role": "Software developer",
+    "period": "Previously",
+    "startDate": "",
+    "endDate": "",
+    "accent": "orange",
+    "summary": "Turning early product ideas into software people could use.",
+    "prompt": "Projects, responsibilities and dates to add with Matthieu.",
+    "published": true,
+    "order": 3
+  },
+  {
+    "company": "Smovin",
+    "role": "Software developer",
+    "period": "Earlier",
+    "startDate": "",
+    "endDate": "",
+    "accent": "lime",
+    "summary": "Growing as an engineer while shipping a property-management product.",
+    "prompt": "Projects, responsibilities and dates to add with Matthieu.",
+    "published": true,
+    "order": 4
+  }
+]

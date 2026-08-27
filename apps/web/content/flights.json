@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Crêt du Loup",
+    "flownAt": "2026-08-05",
+    "launchName": "Crêt du Loup, France",
+    "distanceMeters": 3000,
+    "durationSeconds": 840,
+    "maxAltitudeMeters": 1830,
+    "maxSpeedKph": 47,
+    "trace": "",
+    "published": true,
+    "order": 1
+  }
+]
