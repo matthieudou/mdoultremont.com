@@ -1,46 +1,37 @@
 # Deploy to Cloudflare
 
-The `CI` workflow checks and builds every push and pull request. After a push
-to `main` passes, the workflow deploys `apps/web` as the
-`matthieu-doultremont-me` Cloudflare Worker.
+Cloudflare Workers Builds deploys `apps/web` from the GitHub repository. A
+push to `main` starts the production build. Pushes to other branches create
+preview builds.
 
-## Configure Cloudflare
+GitHub Actions checks formatting, linting, types, and the production build. It
+does not deploy.
 
-1. Open the [Cloudflare API Tokens page](https://dash.cloudflare.com/profile/api-tokens).
-2. Create a token from the **Edit Cloudflare Workers** template.
-3. Limit the token to the Cloudflare account that owns the Worker.
-4. Copy the token before you leave the page. Cloudflare shows it once.
-5. Copy the account ID from the Cloudflare dashboard account overview.
+## Cloudflare build configuration
 
-The application does not read runtime environment variables or secrets. Add
-new Worker secrets only when the application starts using them.
+Configure the Worker with these values:
 
-## Configure GitHub
+- Git repository: `matthieudou/mdoultremont.com`
+- Production branch: `main`
+- Root directory: `/`
+- Build command: `pnpm build`
+- Deploy command: `pnpm --filter @mdoultremont/portfolio exec wrangler deploy`
+- Version command: `pnpm --filter @mdoultremont/portfolio exec wrangler versions upload`
 
-1. Open **Settings > Secrets and variables > Actions** in the GitHub repository.
-2. Create the repository secret `CLOUDFLARE_API_TOKEN` with the API token.
-3. Create the repository variable `CLOUDFLARE_ACCOUNT_ID` with the account ID.
-4. Open **Settings > Environments** and select the `production` environment
-   after the first workflow run creates it.
-5. Add deployment protection rules if you want manual approval before each
-   production deployment.
+The repository-root pnpm workspace installs the app dependencies. Wrangler
+reads `apps/web/wrangler.jsonc`, which declares the Worker name and custom
+domain.
 
-You can also configure the values with GitHub CLI:
+## Check a deployment
+
+Open **Workers & Pages > mdoultremont-me > Deployments** in Cloudflare. A
+successful production deployment shows the `main` commit and its build log.
+
+Then check the live response:
 
 ```bash
-gh secret set CLOUDFLARE_API_TOKEN --repo matthieudou/mdoultremont.com
-gh variable set CLOUDFLARE_ACCOUNT_ID --repo matthieudou/mdoultremont.com --body "YOUR_ACCOUNT_ID"
+curl --fail --head https://mdoultremont.com
 ```
-
-## Run the first deployment
-
-Push a commit to `main`, then open the repository's **Actions** tab. The
-`Deploy to Cloudflare` job starts only after the `Quality` job passes.
-
-Wrangler deploys to the Worker named in `apps/web/wrangler.jsonc`. If the
-Worker already has a custom domain, the domain remains attached. Otherwise,
-open the Worker in Cloudflare and add a custom domain under **Settings >
-Domains & Routes**.
 
 ## Deploy from your computer
 

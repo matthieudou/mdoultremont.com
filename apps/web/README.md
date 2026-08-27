@@ -1,4 +1,4 @@
-# matthieu.doultremont.me
+# mdoultremont.com
 
 The portfolio is a TanStack Start app. Git is its content database and Pages CMS is the editing UI.
 
