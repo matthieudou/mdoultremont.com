@@ -40,7 +40,7 @@ function PersonalPage() {
         </section>
 
         <section className="relative overflow-hidden bg-[#e6e9e5] bg-[radial-gradient(circle_at_8%_18%,rgba(181,173,255,0.18),transparent_29rem),radial-gradient(circle_at_92%_70%,rgba(140,220,255,0.16),transparent_32rem)] px-[clamp(1rem,5vw,5rem)] py-[clamp(3rem,7vw,7rem)]">
-          <div className="mx-auto max-w-[980px] rounded-3xl border border-white/85 bg-white/80 px-[clamp(1rem,4vw,3.5rem)] py-[clamp(1.5rem,4vw,3rem)] shadow-[0_26px_70px_rgba(37,52,46,0.1)] backdrop-blur-2xl backdrop-saturate-125 max-[760px]:rounded-[1.1rem] max-[760px]:px-4 max-[760px]:py-5">
+          <div className="mx-auto max-w-245 rounded-3xl border border-white/85 bg-white/80 px-[clamp(1rem,4vw,3.5rem)] py-[clamp(1.5rem,4vw,3rem)] shadow-[0_26px_70px_rgba(37,52,46,0.1)] backdrop-blur-2xl backdrop-saturate-125 max-[760px]:rounded-[1.1rem] max-[760px]:px-4 max-[760px]:py-5">
             <header className="flex items-end justify-between gap-8 border-b border-[#121c1817] pb-5 max-[760px]:flex-col max-[760px]:items-start max-[760px]:gap-5">
               <div>
                 <p className="mb-2 text-[0.7rem] font-semibold tracking-[0.13em] uppercase">
