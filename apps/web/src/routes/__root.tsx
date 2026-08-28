@@ -33,6 +33,23 @@ export const Route = createRootRoute({
         rel: "stylesheet",
         href: appCss,
       },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "32x32",
+        href: "/favicon-32.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "64x64",
+        href: "/favicon-64.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        href: "/apple-touch-icon.png",
+      },
     ],
   }),
   shellComponent: RootDocument,
@@ -44,7 +61,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="relative min-h-screen bg-[#87918a] bg-[radial-gradient(circle_at_12%_8%,rgba(166,216,193,0.58),transparent_28rem),radial-gradient(circle_at_88%_16%,rgba(165,174,211,0.45),transparent_34rem)] bg-fixed font-sans text-[#111513] antialiased selection:bg-[#c8ff71] selection:text-[#111513]">
+      <body>
         {children}
         <Scripts />
       </body>
