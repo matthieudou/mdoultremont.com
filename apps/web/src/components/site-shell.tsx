@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router"
 import type { ReactNode } from "react"
 import { profile } from "../content"
 import { CopyEmailButton } from "./copy-email-button"
-import { LookAtPointer } from "./look-at-pointer"
+import { FaceAnimation } from "./face-animation"
 
 const navigation = [
   { to: "/", label: "Professional" },
@@ -21,7 +21,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             to="/"
             aria-label={`${profile.name}, home`}
           >
-            <LookAtPointer className="site-gaze" />
+            <FaceAnimation className="site-gaze" withHover withIdle />
           </Link>
           <nav className="site-nav" aria-label="Portfolio sections">
             {navigation.map((item) => (

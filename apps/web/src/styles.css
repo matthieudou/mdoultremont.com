@@ -81,6 +81,12 @@ a {
   transform: scale(var(--gaze-scale));
   transition: transform 180ms ease-out;
 }
+.face-animation {
+  display: block;
+  flex: none;
+  background-repeat: no-repeat;
+  background-size: 900% 400%;
+}
 .site-gaze {
   width: 2.5rem;
   height: 2.5rem;
