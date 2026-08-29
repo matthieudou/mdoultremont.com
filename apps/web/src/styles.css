@@ -69,10 +69,21 @@ a {
   border-radius: 0.75rem;
   outline: none;
 }
-.site-mark img {
+.look-at-pointer {
+  --gaze-x: 50%;
+  --gaze-y: 50%;
+  --gaze-scale: 1;
+  display: block;
+  flex: none;
+  background-position: var(--gaze-x) var(--gaze-y);
+  background-repeat: no-repeat;
+  background-size: 500% 500%;
+  transform: scale(var(--gaze-scale));
+  transition: transform 180ms ease-out;
+}
+.site-gaze {
   width: 2.5rem;
   height: 2.5rem;
-  object-fit: contain;
 }
 .site-nav {
   display: flex;
