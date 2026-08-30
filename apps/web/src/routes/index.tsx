@@ -20,7 +20,7 @@ function ProfessionalPage() {
     <SiteShell>
       <main>
         <section className="border-b border-line">
-          <div className="mx-auto grid w-[calc(100%-2rem)] max-w-360 gap-12 border-x border-line sm:w-[calc(100%-4rem)] lg:w-[calc(100%-6rem)] lg:grid-cols-[max-content_minmax(19rem,1fr)] lg:items-stretch lg:gap-8">
+          <div className="mx-auto grid w-[calc(100%-2rem)] max-w-360 gap-12 border-x border-line sm:w-[calc(100%-4rem)] lg:w-[calc(100%-6rem)] lg:grid-cols-2 lg:items-stretch lg:gap-8">
             <div className="px-4 py-12 sm:px-6 sm:py-16 lg:py-24 lg:pl-8 lg:pr-0">
               {profile.available && (
                 <span className="mb-10 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1.5 text-[0.7rem] font-bold tracking-[0.08em] text-accent-dark uppercase">

@@ -21,7 +21,7 @@ function PhotographyPage() {
       <SiteShell>
         <main>
           <section className="border-b border-line">
-            <div className="mx-auto grid w-[calc(100%-2rem)] max-w-[1440px] gap-12 border-x border-line sm:w-[calc(100%-4rem)] lg:w-[calc(100%-6rem)] lg:grid-cols-[max-content_minmax(19rem,1fr)] lg:items-stretch lg:gap-8">
+            <div className="mx-auto grid w-[calc(100%-2rem)] max-w-[1440px] gap-12 border-x border-line sm:w-[calc(100%-4rem)] lg:w-[calc(100%-6rem)] lg:grid-cols-2 lg:items-stretch lg:gap-8">
               <div className="px-4 py-12 sm:px-6 sm:py-16 lg:py-24 lg:pl-8 lg:pr-0">
                 <p className="text-[0.7rem] font-bold tracking-[0.12em] text-muted uppercase">
                   {pageCopy.photographyEyebrow}
@@ -45,9 +45,9 @@ function PhotographyPage() {
                   </a>
                 </div>
               </div>
-              <div className="relative self-stretch lg:mr-16">
+              <div className="relative self-stretch lg:overflow-hidden">
                 <img
-                  className="mx-auto block w-full max-w-sm object-contain object-bottom lg:absolute lg:bottom-0 lg:left-1/2 lg:h-[90%] lg:w-auto lg:max-w-full lg:-translate-x-1/2"
+                  className="mx-auto block w-full max-w-sm object-contain object-bottom lg:absolute lg:bottom-0 lg:left-1/2 lg:h-full lg:w-auto lg:max-w-full lg:-translate-x-1/2"
                   src={profile.photographyPortrait}
                   alt="Matthieu holding an instant camera"
                 />
