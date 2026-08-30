@@ -18,13 +18,10 @@ export function CopyEmailButton({
   const copyEmail = async () => {
     try {
       await copyText(profile.email)
-      toastManager.add({
-        title: "Email copied",
-        description: profile.email,
-      })
+      toastManager.add({ title: "Email copied", description: profile.email })
     } catch {
       toastManager.add({
-        title: "Could not copy the email",
+        title: "Could not copy email",
         description: profile.email,
       })
     }
@@ -57,6 +54,5 @@ async function copyText(text: string) {
 
   const copied = document.execCommand("copy")
   textArea.remove()
-
   if (!copied) throw new Error("Copy failed")
 }

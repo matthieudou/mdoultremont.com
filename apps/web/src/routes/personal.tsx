@@ -5,7 +5,12 @@ import { SiteShell } from "../components/site-shell"
 import { flights, lifeEvents, pageCopy, places } from "../content"
 import type { Flight } from "../content"
 
-export const Route = createFileRoute("/personal")({ component: PersonalPage })
+export const Route = createFileRoute("/personal")({
+  component: PersonalPage,
+  head: () => ({
+    meta: [{ name: "robots", content: "noindex, nofollow" }],
+  }),
+})
 
 type PersonalTimelineItem = {
   id: string
@@ -26,26 +31,36 @@ function PersonalPage() {
   return (
     <SiteShell>
       <main>
-        <section className="page-rails page-hero">
-          <div className="section-inner page-hero-grid">
+        <section className="border-b border-line">
+          <div className="mx-auto grid w-[calc(100%-2rem)] max-w-[1440px] items-end gap-10 border-x border-line px-4 py-16 sm:w-[calc(100%-4rem)] sm:px-6 sm:py-20 lg:w-[calc(100%-6rem)] lg:grid-cols-[1fr_minmax(17rem,0.5fr)] lg:gap-24 lg:px-8 lg:py-24">
             <div>
-              <p className="eyebrow">{pageCopy.personalEyebrow}</p>
-              <h1 className="display">{pageCopy.personalTitle}</h1>
+              <p className="text-[0.7rem] font-bold tracking-[0.12em] text-muted uppercase">
+                {pageCopy.personalEyebrow}
+              </p>
+              <h1 className="mt-4 max-w-[9ch] text-[clamp(4rem,9vw,9rem)] leading-[0.9] font-medium tracking-[-0.065em]">
+                {pageCopy.personalTitle}
+              </h1>
             </div>
-            <p className="lede">{pageCopy.personalIntroduction}</p>
+            <p className="text-[clamp(1rem,1.35vw,1.2rem)] leading-[1.55] text-muted">
+              {pageCopy.personalIntroduction}
+            </p>
           </div>
         </section>
-        <section className="page-rails timeline-section">
-          <div className="section-inner">
-            <header className="timeline-header">
+        <section className="border-b border-line">
+          <div className="mx-auto w-[calc(100%-2rem)] max-w-[1440px] border-x border-line px-4 py-16 sm:w-[calc(100%-4rem)] sm:px-6 sm:py-20 lg:w-[calc(100%-6rem)] lg:px-8 lg:py-24">
+            <header className="flex flex-col items-start justify-between gap-8 border-b border-line pb-8 sm:flex-row sm:items-end">
               <div>
-                <p className="eyebrow">{pageCopy.personalTimelineEyebrow}</p>
-                <h2 className="display">{pageCopy.personalTimelineTitle}</h2>
-                <p className="lede mt-5 max-w-xl">
+                <p className="text-[0.7rem] font-bold tracking-[0.12em] text-muted uppercase">
+                  {pageCopy.personalTimelineEyebrow}
+                </p>
+                <h2 className="mt-4 text-[clamp(2.5rem,5vw,5.8rem)] leading-[0.9] font-medium tracking-[-0.065em]">
+                  {pageCopy.personalTimelineTitle}
+                </h2>
+                <p className="mt-5 max-w-xl text-[clamp(1rem,1.35vw,1.2rem)] leading-[1.55] text-muted">
                   {pageCopy.personalTimelineIntroduction}
                 </p>
               </div>
-              <div className="switch-label">
+              <div className="inline-flex items-center gap-3 text-xs font-semibold text-muted">
                 Show flights
                 <Switch.Root
                   aria-label="Show flights in the timeline"
@@ -57,30 +72,38 @@ function PersonalPage() {
                 </Switch.Root>
               </div>
             </header>
-            <div className="timeline-list">
+            <div className="border-l border-line">
               {timeline.map((item) => (
-                <details className="timeline-item" key={item.id}>
-                  <summary>
-                    <span className="timeline-date">
+                <details
+                  className="group border-r border-b border-line"
+                  key={item.id}
+                >
+                  <summary className="grid min-h-24 cursor-pointer list-none grid-cols-[minmax(0,1fr)_auto] items-center gap-5 px-4 py-5 marker:hidden sm:grid-cols-[8rem_minmax(0,1fr)_auto] sm:px-6">
+                    <span className="hidden text-xs text-muted sm:block">
                       <time dateTime={item.date || undefined}>
                         {formatDate(item.date)}
                       </time>
                     </span>
                     <span>
-                      <strong className="timeline-title">{item.title}</strong>
-                      <span className="timeline-location">
+                      <strong className="block text-base font-bold">
+                        {item.title}
+                      </strong>
+                      <span className="mt-1 block text-sm text-muted">
                         {timelineLabels[item.kind]}
                         {item.location && ` · ${item.location}`}
                       </span>
                     </span>
-                    <span className="timeline-toggle" aria-hidden="true">
+                    <span
+                      className="text-lg text-accent-dark group-open:rotate-45"
+                      aria-hidden="true"
+                    >
                       +
                     </span>
                   </summary>
-                  <div className="timeline-body">
-                    <p>{item.description}</p>
+                  <div className="px-4 pb-7 leading-[1.55] text-muted sm:pl-[10.75rem]">
+                    <p className="max-w-2xl">{item.description}</p>
                     {item.flight && (
-                      <div className="timeline-stats">
+                      <div className="mt-4 flex flex-wrap gap-x-4 gap-y-3 text-sm text-ink">
                         <span>
                           {formatDistance(item.flight.distanceMeters)}
                         </span>
