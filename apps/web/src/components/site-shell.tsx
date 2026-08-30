@@ -44,7 +44,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               ))}
             </nav>
             <CopyEmailButton
-              className="hidden min-h-10 justify-self-end rounded-full border border-line px-4 py-2 text-xs font-semibold transition-colors hover:border-ink hover:bg-[#eceae5] sm:inline-flex sm:items-center"
+              className="hidden min-h-11 justify-self-end rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-[#333] sm:inline-flex sm:items-center"
               ariaLabel="Copy email address"
             >
               Get in touch

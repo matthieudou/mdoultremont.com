@@ -4,6 +4,7 @@ import { useState } from "react"
 import { SiteShell } from "../components/site-shell"
 import { pageCopy, photographs, profile } from "../content"
 import type { Photograph } from "../content"
+import { CopyEmailButton } from "../components/copy-email-button"
 
 export const Route = createFileRoute("/photography")({
   component: PhotographyPage,
@@ -20,28 +21,43 @@ function PhotographyPage() {
       <SiteShell>
         <main>
           <section className="border-b border-line">
-            <div className="mx-auto grid w-[calc(100%-2rem)] max-w-[1440px] items-end gap-10 border-x border-line px-4 py-16 sm:w-[calc(100%-4rem)] sm:px-6 sm:py-20 lg:w-[calc(100%-6rem)] lg:grid-cols-[1fr_minmax(17rem,0.5fr)] lg:gap-24 lg:px-8 lg:py-24">
-              <div>
+            <div className="mx-auto grid w-[calc(100%-2rem)] max-w-[1440px] gap-12 border-x border-line sm:w-[calc(100%-4rem)] lg:w-[calc(100%-6rem)] lg:grid-cols-[max-content_minmax(19rem,1fr)] lg:items-stretch lg:gap-8">
+              <div className="px-4 py-12 sm:px-6 sm:py-16 lg:py-24 lg:pl-8 lg:pr-0">
                 <p className="text-[0.7rem] font-bold tracking-[0.12em] text-muted uppercase">
                   {pageCopy.photographyEyebrow}
                 </p>
                 <h1 className="mt-4 max-w-[9ch] text-[clamp(4rem,9vw,9rem)] leading-[0.9] font-medium tracking-[-0.065em]">
                   {pageCopy.photographyTitle}
+                  <span className="text-accent">.</span>
                 </h1>
                 <p className="mt-8 max-w-xl text-[clamp(1rem,1.35vw,1.2rem)] leading-[1.55] text-muted">
                   {pageCopy.photographyIntroduction}
                 </p>
+                <div className="mt-10 flex flex-wrap items-center gap-5">
+                  <CopyEmailButton className="inline-flex min-h-11 items-center justify-center rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-[#333]">
+                    Get in touch
+                  </CopyEmailButton>
+                  <a
+                    className="border-b border-current py-1 text-sm font-semibold transition-colors hover:text-accent-dark"
+                    href="#collection"
+                  >
+                    See the collection
+                  </a>
+                </div>
               </div>
-              <img
-                className="mx-auto block w-40 lg:mr-0 lg:w-full lg:max-w-80"
-                src={profile.photographyPortrait}
-                alt="Matthieu holding an instant camera"
-              />
+              <div className="relative self-stretch lg:mr-16">
+                <img
+                  className="mx-auto block w-full max-w-sm object-contain object-bottom lg:absolute lg:bottom-0 lg:left-1/2 lg:h-[90%] lg:w-auto lg:max-w-full lg:-translate-x-1/2"
+                  src={profile.photographyPortrait}
+                  alt="Matthieu holding an instant camera"
+                />
+              </div>
             </div>
           </section>
           <section
             className="border-b border-line"
             aria-label="Photography collection"
+            id="collection"
           >
             <div className="mx-auto w-[calc(100%-2rem)] max-w-[1440px] columns-1 gap-6 border-x border-line px-4 py-16 sm:w-[calc(100%-4rem)] sm:px-6 sm:py-20 md:columns-2 lg:w-[calc(100%-6rem)] lg:columns-3 lg:px-8 lg:py-24">
               {photographs.map((photo) => (
