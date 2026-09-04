@@ -1,9 +1,10 @@
 import { Dialog } from "@base-ui/react/dialog"
 import { createFileRoute } from "@tanstack/react-router"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { useHotkey } from "@tanstack/react-hotkeys"
 import { SiteShell } from "../components/site-shell"
 import { pageCopy, photographs, profile } from "../content"
+import type { Photograph } from "../content"
 import { CopyEmailButton } from "../components/copy-email-button"
 
 export const Route = createFileRoute("/photography")({
@@ -21,13 +22,6 @@ function PhotographyPage() {
       return (current + direction + photographs.length) % photographs.length
     })
   }
-
-  useHotkey("ArrowLeft", () => selectAdjacent(-1), {
-    enabled: selectedIndex !== null,
-  })
-  useHotkey("ArrowRight", () => selectAdjacent(1), {
-    enabled: selectedIndex !== null,
-  })
 
   return (
     <Dialog.Root
@@ -104,44 +98,73 @@ function PhotographyPage() {
         <Dialog.Portal>
           <Dialog.Backdrop className="fixed inset-0 z-100 bg-[#111111d9] backdrop-blur-lg" />
           <Dialog.Viewport className="fixed inset-0 z-101 grid min-h-dvh place-items-center p-4">
-            <Dialog.Popup className="relative w-fit max-w-[min(75rem,100%)] outline-none">
-              <Dialog.Close
-                className="absolute top-4 right-4 cursor-pointer rounded-full border border-[#555] bg-charcoal px-4 py-2 text-xs font-semibold text-paper"
-                aria-label="Close photograph"
-              >
-                Close
-              </Dialog.Close>
-              <img
-                className="block max-h-[calc(100dvh-6rem)] max-w-full rounded-xl"
-                src={selectedPhoto.src}
-                alt={`${selectedPhoto.title}, ${selectedPhoto.location}`}
-              />
-              <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 pt-3 text-paper">
-                <button
-                  className="rounded-full px-3 py-2 text-sm hover:bg-white/10"
-                  type="button"
-                  onClick={() => selectAdjacent(-1)}
-                  aria-label="Previous photograph"
-                >
-                  Previous
-                </button>
-                <Dialog.Title className="min-w-0 truncate text-center text-sm font-medium">
-                  {selectedPhoto.title} · {selectedIndex + 1} of{" "}
-                  {photographs.length}
-                </Dialog.Title>
-                <button
-                  className="rounded-full px-3 py-2 text-sm hover:bg-white/10"
-                  type="button"
-                  onClick={() => selectAdjacent(1)}
-                  aria-label="Next photograph"
-                >
-                  Next
-                </button>
-              </div>
-            </Dialog.Popup>
+            <PhotographDialog
+              photo={selectedPhoto}
+              index={selectedIndex}
+              onNavigate={selectAdjacent}
+            />
           </Dialog.Viewport>
         </Dialog.Portal>
       )}
     </Dialog.Root>
+  )
+}
+
+function PhotographDialog({
+  photo,
+  index,
+  onNavigate,
+}: {
+  photo: Photograph
+  index: number
+  onNavigate: (direction: -1 | 1) => void
+}) {
+  const popupRef = useRef<HTMLDivElement>(null)
+
+  // Dialog stops arrow-key propagation; listen on the popup itself.
+  // Mounting with the popup ensures its ref exists when hotkeys register.
+  useHotkey("ArrowLeft", () => onNavigate(-1), { target: popupRef })
+  useHotkey("ArrowRight", () => onNavigate(1), { target: popupRef })
+
+  return (
+    <Dialog.Popup
+      ref={popupRef}
+      className="relative w-fit max-w-[min(75rem,100%)] outline-none"
+    >
+      <Dialog.Close
+        className="absolute top-4 right-4 cursor-pointer rounded-full border border-[#555] bg-charcoal px-4 py-2 text-xs font-semibold text-paper"
+        aria-label="Close photograph"
+      >
+        Close
+      </Dialog.Close>
+      <img
+        className="block max-h-[calc(100dvh-6rem)] max-w-full rounded-xl"
+        src={photo.src}
+        alt={`${photo.title}, ${photo.location}`}
+      />
+      <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 pt-3 text-paper">
+        <button
+          className="rounded-full px-3 py-2 text-sm hover:bg-white/10"
+          type="button"
+          onClick={() => onNavigate(-1)}
+          aria-label="Previous photograph"
+          aria-keyshortcuts="ArrowLeft"
+        >
+          Previous
+        </button>
+        <Dialog.Title className="min-w-0 truncate text-center text-sm font-medium">
+          {photo.title} · {index + 1} of {photographs.length}
+        </Dialog.Title>
+        <button
+          className="rounded-full px-3 py-2 text-sm hover:bg-white/10"
+          type="button"
+          onClick={() => onNavigate(1)}
+          aria-label="Next photograph"
+          aria-keyshortcuts="ArrowRight"
+        >
+          Next
+        </button>
+      </div>
+    </Dialog.Popup>
   )
 }
