@@ -73,20 +73,20 @@ function PhotographyPage() {
               {photographs.map((photo, index) => (
                 <button
                   className="mb-8 inline-block w-full cursor-zoom-in break-inside-avoid bg-transparent text-left"
-                  key={photo.title}
+                  key={photo.src}
                   type="button"
+                  aria-label={`View photograph ${index + 1}: ${photo.location} ${photo.year}`}
                   onClick={() => setSelectedIndex(index)}
                 >
                   <img
                     className="block w-full rounded-xl border border-line transition-transform hover:scale-[1.012]"
                     src={photo.src}
-                    alt={`${photo.title}, ${photo.location}`}
+                    alt={`Photograph taken in ${photo.location}, ${photo.year}`}
                     loading="lazy"
                     decoding="async"
                   />
-                  <span className="flex items-start justify-between gap-4 border-b border-line py-3">
-                    <strong className="text-sm">{photo.title}</strong>
-                    <span className="text-xs text-muted">{photo.location}</span>
+                  <span className="block border-b border-line py-3 text-sm text-muted">
+                    {photo.location} {photo.year}
                   </span>
                 </button>
               ))}
@@ -140,7 +140,7 @@ function PhotographDialog({
       <img
         className="block max-h-[calc(100dvh-6rem)] max-w-full rounded-xl"
         src={photo.src}
-        alt={`${photo.title}, ${photo.location}`}
+        alt={`Photograph taken in ${photo.location}, ${photo.year}`}
       />
       <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 pt-3 text-paper">
         <button
@@ -153,7 +153,7 @@ function PhotographDialog({
           Previous
         </button>
         <Dialog.Title className="min-w-0 truncate text-center text-sm font-medium">
-          {photo.title} · {index + 1} of {photographs.length}
+          {photo.location} {photo.year} · {index + 1} of {photographs.length}
         </Dialog.Title>
         <button
           className="rounded-full px-3 py-2 text-sm hover:bg-white/10"

@@ -21,6 +21,29 @@ function contentSource() {
 }
 
 describe("portfolio content", () => {
+  test("allows photographs to share a place and year with distinct image paths", () => {
+    const source = contentSource()
+    source.photographs[1].location = source.photographs[0].location
+    source.photographs[1].year = source.photographs[0].year
+
+    const content = createPortfolioContent(source)
+
+    expect(content.photographs).toHaveLength(source.photographs.length)
+    expect(content.photographs[1].src).toBe(source.photographs[1].src)
+  })
+
+  test.each([21, 2021.5, 10000])(
+    "rejects invalid photograph year %s",
+    (year) => {
+      const source = contentSource()
+      source.photographs[0].year = year
+
+      expect(() => createPortfolioContent(source)).toThrow(
+        "photographs[0].year"
+      )
+    }
+  )
+
   test("publishes ordered experience records and derives their periods", () => {
     const content = createPortfolioContent(contentSource())
 

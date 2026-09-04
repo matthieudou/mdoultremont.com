@@ -144,8 +144,8 @@ content:
         options:
           input: apps/web/public/media/photography
           output: /media/photography
-      - { name: title, label: Title, type: string, required: true }
       - { name: location, label: Location, type: string, required: true }
+      - { name: year, label: Year taken, type: number, required: true }
       - { name: published, label: Published, type: boolean, default: true }
       - { name: order, label: Display order, type: number, required: true }
 

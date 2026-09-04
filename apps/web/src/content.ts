@@ -14,7 +14,7 @@ export type Experience = {
   summary: string
 }
 
-export type Photograph = { src: string; title: string; location: string }
+export type Photograph = { src: string; location: string; year: number }
 
 export type Flight = {
   name: string
@@ -141,10 +141,10 @@ export function createPortfolioContent(
       "photographs",
       (record, path) => ({
         src: requiredString(record.src, `${path}.src`),
-        title: requiredString(record.title, `${path}.title`),
         location: requiredString(record.location, `${path}.location`),
+        year: requiredYear(record.year, `${path}.year`),
       }),
-      (item) => item.title
+      (item) => item.src
     ),
     flights: publishedByOrder(
       source.flights,
@@ -390,6 +390,14 @@ function requiredPositiveNumber(value: unknown, path: string): number {
     throw new ContentValidationError(path, "must be a positive number")
   }
   return value
+}
+
+function requiredYear(value: unknown, path: string): number {
+  const year = requiredPositiveInteger(value, path)
+  if (year < 1000 || year > 9999) {
+    throw new ContentValidationError(path, "must be a four-digit year")
+  }
+  return year
 }
 
 function requiredDate(value: unknown, path: string): string {
