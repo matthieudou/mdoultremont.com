@@ -1,6 +1,7 @@
 import { Dialog } from "@base-ui/react/dialog"
 import { createFileRoute } from "@tanstack/react-router"
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import { useHotkey } from "@tanstack/react-hotkeys"
 import { SiteShell } from "../components/site-shell"
 import { pageCopy, photographs, profile } from "../content"
 import { CopyEmailButton } from "../components/copy-email-button"
@@ -21,25 +22,12 @@ function PhotographyPage() {
     })
   }
 
-  useEffect(() => {
-    if (selectedIndex === null) return
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      const direction =
-        event.key === "ArrowLeft" ? -1 : event.key === "ArrowRight" ? 1 : null
-
-      if (direction === null) return
-      event.preventDefault()
-      setSelectedIndex((current) =>
-        current === null
-          ? null
-          : (current + direction + photographs.length) % photographs.length
-      )
-    }
-
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [selectedIndex])
+  useHotkey("ArrowLeft", () => selectAdjacent(-1), {
+    enabled: selectedIndex !== null,
+  })
+  useHotkey("ArrowRight", () => selectAdjacent(1), {
+    enabled: selectedIndex !== null,
+  })
 
   return (
     <Dialog.Root
