@@ -4,7 +4,7 @@
     "country": "Indonesia",
     "visitedAt": "",
     "description": "The date and story will be added later.",
-    "published": true,
+    "published": false,
     "order": 1
   },
   {
@@ -12,7 +12,7 @@
     "country": "Italy",
     "visitedAt": "",
     "description": "The date and story will be added later.",
-    "published": true,
+    "published": false,
     "order": 2
   },
   {
@@ -20,7 +20,7 @@
     "country": "Norway",
     "visitedAt": "",
     "description": "The date and story will be added later.",
-    "published": true,
+    "published": false,
     "order": 3
   }
 ]

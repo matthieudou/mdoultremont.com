@@ -4,7 +4,7 @@
     "eventAt": "",
     "location": "",
     "description": "More on this chapter later.",
-    "published": true,
+    "published": false,
     "order": 1
   },
   {
@@ -12,7 +12,7 @@
     "eventAt": "",
     "location": "Brussels, Belgium",
     "description": "The date and longer story will be added later.",
-    "published": true,
+    "published": false,
     "order": 2
   }
 ]
