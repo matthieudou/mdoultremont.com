@@ -113,14 +113,13 @@ function IterationsPage() {
   const [grain, setGrain] = useState(12)
   const [statement, setStatement] = useState(0)
   const [heading, setHeading] = useState(0)
-  const [cards, setCards] = useState(0)
-  const [logoGrain, setLogoGrain] = useState(28)
-  const [button, setButton] = useState(1)
+  const [cards, setCards] = useState(2)
+  const [button, setButton] = useState(0)
   const [availability, setAvailability] = useState(0)
-  const [navigation, setNavigation] = useState(0)
+  const [navigation, setNavigation] = useState(1)
   const [copiedSummary, setCopiedSummary] = useState("")
   const [copyFailed, setCopyFailed] = useState(false)
-  const summary = `Navigation ${navigation + 1}; availability ${availability + 1}; button ${button + 1}; hero ${hero + 1}; grain ${grain}%; statement ${statement + 1}; experience heading ${heading + 1}; cards ${cards + 1}; logo grain ${logoGrain}%.`
+  const summary = `Navigation ${navigation + 1}; availability ${availability + 1}; button ${button + 1}; hero ${hero + 1}; grain ${grain}%; statement ${statement + 1}; experience heading ${heading + 1}; cards ${cards + 1}; logos untextured.`
   async function copySelection() {
     try {
       await navigator.clipboard.writeText(summary)
@@ -227,7 +226,7 @@ function IterationsPage() {
         <Experiment
           id="hero"
           title="Light across the whole hero"
-          description="The divider stays. Color and grain now cross it, connecting the copy and portrait. The selected badge and button appear here together."
+          description="Color and visible grain connect the copy and portrait without a middle divider. Your selected badge and button appear here together."
         >
           <div className="it-toolbar">
             <Choices
@@ -265,7 +264,7 @@ function IterationsPage() {
               <p className="body-copy">{profile.professionalIntroduction}</p>
               <div className="hero-actions">
                 <ButtonSample mode={button} />
-                <a className="text-link" href="#experience">
+                <a className="it-soft-link" href="#experience">
                   See my experience
                 </a>
               </div>
@@ -312,7 +311,7 @@ function IterationsPage() {
         <Experiment
           id="experience"
           title="Experience, with a little more character"
-          description="No redundant eyebrow. Compare the introduction, then the company colors and logo texture. The card lines sit on the frame, with a single shared line between cells."
+          description="No redundant eyebrow. Compare the introduction, then the company colors and smaller corner logos. The card lines sit on the frame, with a single shared line between cells."
         >
           <div className="it-toolbar">
             <Choices
@@ -331,23 +330,12 @@ function IterationsPage() {
               value={cards}
               onChange={setCards}
             />
-            <label className="it-range">
-              Logo grain <output>{logoGrain}%</output>
-              <input
-                type="range"
-                min="0"
-                max="65"
-                value={logoGrain}
-                onChange={(e) => setLogoGrain(Number(e.target.value))}
-              />
-            </label>
           </div>
           <div
             className={`it-experience it-heading-${heading} it-cards-${cards}`}
             style={
               {
                 "--grain": grain / 100,
-                "--logo-grain": logoGrain / 100,
               } as CSSProperties
             }
           >
@@ -370,18 +358,18 @@ function IterationsPage() {
                     { "--company-color": brandColors[index] } as CSSProperties
                   }
                 >
-                  <p className="experience-period">{experience.period}</p>
-                  <div className="it-logo">
-                    <img
-                      src={`/media/companies/${companyFiles[index]}.jpg`}
-                      alt=""
-                      width="64"
-                      height="64"
-                    />
-                    <span aria-hidden="true" />
+                  <div className="it-company-top">
+                    <p className="experience-period">{experience.period}</p>
+                    <div className="it-logo">
+                      <img
+                        src={`/media/companies/${companyFiles[index]}.jpg`}
+                        alt=""
+                        width="36"
+                        height="36"
+                      />
+                    </div>
                   </div>
                   <h3>{experience.company}</h3>
-                  <p className="experience-role">{experience.role}</p>
                   <p className="experience-summary">{experience.summary}</p>
                 </article>
               ))}
@@ -393,8 +381,8 @@ function IterationsPage() {
             <a href="https://www.linkedin.com/company/cycleapp/">Cycle</a>,{" "}
             <a href="https://www.linkedin.com/company/startkiosk/">Kiosk</a>,{" "}
             <a href="https://www.linkedin.com/company/smovin/">Smovin</a>.
-            Colors are exploratory tints, not a brand specification. Grain is a
-            removable overlay; original logo files are preserved.
+            Colors are exploratory tints, not a brand specification. Logos are
+            shown without added grain.
           </p>
         </Experiment>
         <aside className="it-selection">
