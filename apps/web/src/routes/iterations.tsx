@@ -364,8 +364,8 @@ function IterationsPage() {
                       <img
                         src={`/media/companies/${companyFiles[index]}.jpg`}
                         alt=""
-                        width="36"
-                        height="36"
+                        width="28"
+                        height="28"
                       />
                     </div>
                   </div>

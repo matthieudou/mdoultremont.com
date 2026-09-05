@@ -156,7 +156,13 @@
 }
 .it-navigation-1 .it-nav-indicator::after {
   margin-inline: 24px;
-  background: linear-gradient(90deg, transparent, #666, transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #666 12%,
+    #666 88%,
+    transparent
+  );
 }
 .it-navigation-2 .it-nav-indicator::after {
   margin-inline: 28px;
@@ -418,7 +424,7 @@
   );
 }
 .it-cards-2 .it-company {
-  background: linear-gradient(145deg, #ffffff09, transparent);
+  background: linear-gradient(135deg, #34373b 0%, #25282c 42%, #17191d 90%);
 }
 .it-company-top {
   display: flex;
@@ -428,10 +434,10 @@
   min-height: 36px;
 }
 .it-logo {
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
-  border-radius: 8px;
+  border-radius: 6px;
   overflow: hidden;
 }
 .it-logo img {
@@ -457,10 +463,22 @@
   right: -4px;
   bottom: 8px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #666, transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #666 12%,
+    #666 88%,
+    transparent
+  );
 }
 .it-soft-link:hover::after {
-  background: linear-gradient(90deg, transparent, #121212, transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #121212 12%,
+    #121212 88%,
+    transparent
+  );
 }
 .it-hero::after {
   mix-blend-mode: multiply;
