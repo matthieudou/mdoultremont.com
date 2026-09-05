@@ -34,7 +34,7 @@ export function SiteShell({
               />
             </Link>
             <nav
-              className="flex items-center justify-center gap-1 px-2 sm:px-4"
+              className="portfolio-navigation"
               aria-label="Portfolio sections"
             >
               {navigation.map((item) => (
@@ -42,10 +42,12 @@ export function SiteShell({
                   className="navigation-link"
                   key={item.to}
                   to={item.to}
+                  viewTransition
                   activeOptions={{ exact: true }}
                   activeProps={{ className: "navigation-active" }}
                 >
                   {item.label}
+                  <span className="navigation-indicator" aria-hidden="true" />
                 </Link>
               ))}
             </nav>

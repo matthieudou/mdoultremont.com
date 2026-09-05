@@ -5,12 +5,19 @@ import { experiences, pageCopy, profile } from "../content"
 
 export const Route = createFileRoute("/")({ component: ProfessionalPage })
 
+const companyLogos: Record<string, string> = {
+  Atlassian: "atlassian",
+  Cycle: "cycle",
+  Kiosk: "kiosk",
+  Smovin: "smovin",
+}
+
 function ProfessionalPage() {
   return (
     <SiteShell contactTitle={pageCopy.nextChapterTitle}>
       <main>
         <section className="professional-hero section-rule">
-          <div className="site-frame editorial-grid">
+          <div className="site-frame editorial-grid hero-surface">
             <div className="hero-copy">
               {profile.available && (
                 <span className="availability">
@@ -30,12 +37,12 @@ function ProfessionalPage() {
                 <CopyEmailButton className="contact-button">
                   Copy email
                 </CopyEmailButton>
-                <a className="text-link" href="#experience">
+                <a className="soft-link" href="#experience">
                   See my experience
                 </a>
               </div>
             </div>
-            <div className="portrait-stage textured">
+            <div className="portrait-stage">
               <img
                 src={profile.professionalPortrait}
                 alt="Matthieu d'Oultremont"
@@ -54,7 +61,6 @@ function ProfessionalPage() {
           <div className="site-frame">
             <div className="experience-heading editorial-grid">
               <div>
-                <p className="section-label">{pageCopy.experienceEyebrow}</p>
                 <h2 className="section-heading">{pageCopy.experienceTitle}</h2>
               </div>
               <p className="body-copy">{pageCopy.experienceIntroduction}</p>
@@ -62,9 +68,19 @@ function ProfessionalPage() {
             <div className="experience-grid">
               {experiences.map((experience) => (
                 <article className="experience-cell" key={experience.company}>
-                  <p className="experience-period">{experience.period}</p>
+                  <div className="experience-top">
+                    <p className="experience-period">{experience.period}</p>
+                    {companyLogos[experience.company] && (
+                      <img
+                        className="company-logo"
+                        src={`/media/companies/${companyLogos[experience.company]}.jpg`}
+                        alt=""
+                        width="28"
+                        height="28"
+                      />
+                    )}
+                  </div>
                   <h3>{experience.company}</h3>
-                  <p className="experience-role">{experience.role}</p>
                   <p className="experience-summary">{experience.summary}</p>
                 </article>
               ))}
