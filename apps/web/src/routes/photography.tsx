@@ -45,7 +45,7 @@ function PhotographyPage() {
                 </p>
                 <div className="mt-10 flex flex-wrap items-center gap-5">
                   <CopyEmailButton className="inline-flex min-h-11 items-center justify-center rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-[#333]">
-                    Get in touch
+                    Copy email
                   </CopyEmailButton>
                   <a
                     className="border-b border-current py-1 text-sm font-semibold transition-colors hover:text-accent-dark"
@@ -79,13 +79,13 @@ function PhotographyPage() {
                   onClick={() => setSelectedIndex(index)}
                 >
                   <img
-                    className="block w-full rounded-xl border border-line transition-transform hover:scale-[1.012]"
+                    className="block w-full rounded-sm transition-opacity hover:opacity-95"
                     src={photo.src}
                     alt={`Photograph taken in ${photo.location}, ${photo.year}`}
                     loading="lazy"
                     decoding="async"
                   />
-                  <span className="block border-b border-line py-3 text-sm text-muted">
+                  <span className="block py-3 text-sm text-muted">
                     {photo.location} {photo.year}
                   </span>
                 </button>
@@ -132,7 +132,7 @@ function PhotographDialog({
       className="relative w-fit max-w-[min(75rem,100%)] outline-none"
     >
       <Dialog.Close
-        className="absolute top-4 right-4 cursor-pointer rounded-full border border-[#555] bg-charcoal px-4 py-2 text-xs font-semibold text-paper"
+        className="absolute top-4 right-4 min-h-11 cursor-pointer rounded-full border border-[#555] bg-charcoal px-4 py-2 text-xs font-semibold text-paper"
         aria-label="Close photograph"
       >
         Close
@@ -144,7 +144,7 @@ function PhotographDialog({
       />
       <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 pt-3 text-paper">
         <button
-          className="rounded-full px-3 py-2 text-sm hover:bg-white/10"
+          className="min-h-11 rounded-full px-3 py-2 text-sm hover:bg-white/10"
           type="button"
           onClick={() => onNavigate(-1)}
           aria-label="Previous photograph"
@@ -156,7 +156,7 @@ function PhotographDialog({
           {photo.location} {photo.year} · {index + 1} of {photographs.length}
         </Dialog.Title>
         <button
-          className="rounded-full px-3 py-2 text-sm hover:bg-white/10"
+          className="min-h-11 rounded-full px-3 py-2 text-sm hover:bg-white/10"
           type="button"
           onClick={() => onNavigate(1)}
           aria-label="Next photograph"

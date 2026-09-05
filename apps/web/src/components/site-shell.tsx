@@ -10,14 +10,20 @@ const navigation = [
   { to: "/photography", label: "Photography" },
 ] as const
 
-export function SiteShell({ children }: { children: ReactNode }) {
+export function SiteShell({
+  children,
+  contactTitle,
+}: {
+  children: ReactNode
+  contactTitle?: string
+}) {
   return (
     <Toast.Provider timeout={3200}>
-      <div className="overflow-hidden bg-paper text-ink">
+      <div className="site-shell bg-paper text-ink">
         <header className="sticky top-0 z-20 border-b border-line bg-paper/95 backdrop-blur-xl">
           <div className="mx-auto grid min-h-20 w-[calc(100%-2rem)] max-w-[1440px] grid-cols-[1fr_auto_1fr] items-center gap-4 border-x border-line px-4 sm:w-[calc(100%-4rem)] sm:px-6 lg:w-[calc(100%-6rem)] lg:px-8">
             <Link
-              className="inline-flex size-11 items-center justify-center rounded-xl outline-none"
+              className="inline-flex size-11 items-center justify-center rounded-xl"
               to="/"
               aria-label={`${profile.name}, home`}
             >
@@ -33,41 +39,43 @@ export function SiteShell({ children }: { children: ReactNode }) {
             >
               {navigation.map((item) => (
                 <Link
-                  className="rounded-full px-2 py-2 text-xs font-semibold text-muted transition-colors hover:bg-[#eceae5] hover:text-ink sm:px-3"
+                  className="navigation-link"
                   key={item.to}
                   to={item.to}
                   activeOptions={{ exact: true }}
-                  activeProps={{ className: "bg-[#eceae5] text-ink" }}
+                  activeProps={{ className: "navigation-active" }}
                 >
                   {item.label}
                 </Link>
               ))}
             </nav>
             <CopyEmailButton
-              className="hidden min-h-11 justify-self-end rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-[#333] sm:inline-flex sm:items-center"
+              className="contact-button hidden justify-self-end sm:inline-flex"
               ariaLabel="Copy email address"
             >
-              Get in touch
+              Copy email
             </CopyEmailButton>
           </div>
         </header>
         {children}
-        <footer className="bg-charcoal text-paper">
-          <div className="mx-auto grid w-[calc(100%-2rem)] max-w-[1440px] gap-12 border-x border-line-dark px-4 py-16 sm:w-[calc(100%-4rem)] sm:px-6 sm:py-20 lg:w-[calc(100%-6rem)] lg:grid-cols-[1fr_auto] lg:px-8 lg:py-24">
-            <div>
-              <p className="m-0 text-[0.7rem] font-bold tracking-[0.12em] text-[#aaa8a2] uppercase">
-                Say hello
-              </p>
+        <footer className="contact-section textured">
+          <div className="site-frame contact-layout">
+            <div className="contact-copy">
+              <p className="section-label">Say hello</p>
+              {contactTitle && (
+                <h2 className="section-heading">{contactTitle}</h2>
+              )}
               <CopyEmailButton
-                className="mt-4 block cursor-pointer bg-transparent p-0 text-left text-[clamp(1.9rem,4vw,4.5rem)] leading-none tracking-[-0.055em] text-inherit"
+                className="email-button"
                 ariaLabel="Copy email address"
               >
                 {profile.email}
               </CopyEmailButton>
+              <p className="copy-hint">Click to copy email</p>
             </div>
-            <div className="flex flex-col gap-3 self-end text-sm text-[#aaa8a2] lg:flex-row lg:gap-6">
+            <div className="contact-meta">
               <a
-                className="hover:text-accent"
+                className="text-link"
                 href={profile.linkedin}
                 rel="noreferrer"
                 target="_blank"

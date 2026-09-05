@@ -10,7 +10,6 @@ export type Experience = {
   company: string
   role: string
   period: string
-  prompt?: string
   summary: string
 }
 
