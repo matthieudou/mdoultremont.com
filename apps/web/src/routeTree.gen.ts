@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as IterationsRouteImport } from './routes/iterations'
 import { Route as PersonalRouteImport } from './routes/personal'
 import { Route as PhotographyRouteImport } from './routes/photography'
 
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IterationsRoute = IterationsRouteImport.update({
+  id: '/iterations',
+  path: '/iterations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PersonalRoute = PersonalRouteImport.update({
@@ -38,12 +44,14 @@ const PhotographyRoute = PhotographyRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/iterations': typeof IterationsRoute
   '/personal': typeof PersonalRoute
   '/photography': typeof PhotographyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/iterations': typeof IterationsRoute
   '/personal': typeof PersonalRoute
   '/photography': typeof PhotographyRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/iterations': typeof IterationsRoute
   '/personal': typeof PersonalRoute
   '/photography': typeof PhotographyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/personal' | '/photography'
+  fullPaths: '/' | '/admin' | '/iterations' | '/personal' | '/photography'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/personal' | '/photography'
-  id: '__root__' | '/' | '/admin' | '/personal' | '/photography'
+  to: '/' | '/admin' | '/iterations' | '/personal' | '/photography'
+  id: '__root__' | '/' | '/admin' | '/iterations' | '/personal' | '/photography'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  IterationsRoute: typeof IterationsRoute
   PersonalRoute: typeof PersonalRoute
   PhotographyRoute: typeof PhotographyRoute
 }
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/iterations': {
+      id: '/iterations'
+      path: '/iterations'
+      fullPath: '/iterations'
+      preLoaderRoute: typeof IterationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/personal': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  IterationsRoute: IterationsRoute,
   PersonalRoute: PersonalRoute,
   PhotographyRoute: PhotographyRoute,
 }

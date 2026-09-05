@@ -1,0 +1,26 @@
+[
+  {
+    "company": "cycle",
+    "source": "https://www.linkedin.com/company/cycleapp/",
+    "asset": "cycle.jpg",
+    "retrieved": "2026-09-05"
+  },
+  {
+    "company": "kiosk",
+    "source": "https://www.linkedin.com/company/startkiosk/",
+    "asset": "kiosk.jpg",
+    "retrieved": "2026-09-05"
+  },
+  {
+    "company": "smovin",
+    "source": "https://www.linkedin.com/company/smovin/",
+    "asset": "smovin.jpg",
+    "retrieved": "2026-09-05"
+  },
+  {
+    "company": "atlassian",
+    "source": "https://www.linkedin.com/company/atlassian/",
+    "asset": "atlassian.jpg",
+    "retrieved": "2026-09-05"
+  }
+]
