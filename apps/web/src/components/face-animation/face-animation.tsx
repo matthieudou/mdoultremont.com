@@ -128,7 +128,9 @@ export function FaceAnimation({
   return (
     <span
       aria-hidden="true"
-      className={["face-animation", className].filter(Boolean).join(" ")}
+      className={["bg-no-repeat bg-size-[900%_400%]", className]
+        .filter(Boolean)
+        .join(" ")}
       onPointerEnter={handlePointerEnter}
       style={style}
     />

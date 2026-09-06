@@ -93,7 +93,12 @@ export function LookAtPointer({
     <span
       ref={spriteRef}
       aria-hidden="true"
-      className={["look-at-pointer", className].filter(Boolean).join(" ")}
+      className={[
+        "[background-position:var(--gaze-x)_var(--gaze-y)] bg-no-repeat bg-[size:500%_500%] [transform:scale(var(--gaze-scale,1))] transition-transform duration-180 ease-out",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
       style={{ backgroundImage: `url("${src}")` }}
     />
   )
