@@ -6,10 +6,10 @@ import { experiences, pageCopy, profile } from "../content"
 export const Route = createFileRoute("/")({ component: ProfessionalPage })
 
 const companyLogos: Record<string, string> = {
-  Atlassian: "atlassian",
-  Cycle: "cycle",
-  Kiosk: "kiosk",
-  Smovin: "smovin",
+  Atlassian: "atlassian.ico",
+  Cycle: "cycle.png",
+  Kiosk: "kiosk.png",
+  Smovin: "smovin.png",
 }
 
 function ProfessionalPage() {
@@ -73,7 +73,7 @@ function ProfessionalPage() {
                     {companyLogos[experience.company] && (
                       <img
                         className="company-logo"
-                        src={`/media/companies/${companyLogos[experience.company]}.jpg`}
+                        src={`/media/companies/icons/${companyLogos[experience.company]}`}
                         alt=""
                         width="28"
                         height="28"
