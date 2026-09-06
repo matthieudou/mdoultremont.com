@@ -114,12 +114,13 @@ function IterationsPage() {
   const [statement, setStatement] = useState(0)
   const [heading, setHeading] = useState(0)
   const [cards, setCards] = useState(2)
+  const [iconSet, setIconSet] = useState(1)
   const [button, setButton] = useState(0)
   const [availability, setAvailability] = useState(0)
   const [navigation, setNavigation] = useState(1)
   const [copiedSummary, setCopiedSummary] = useState("")
   const [copyFailed, setCopyFailed] = useState(false)
-  const summary = `Navigation ${navigation + 1}; availability ${availability + 1}; button ${button + 1}; hero ${hero + 1}; grain ${grain}%; statement ${statement + 1}; experience heading ${heading + 1}; cards ${cards + 1}; logos untextured.`
+  const summary = `Navigation ${navigation + 1}; availability ${availability + 1}; button ${button + 1}; hero ${hero + 1}; grain ${grain}%; statement ${statement + 1}; experience heading ${heading + 1}; cards ${cards + 1}; icons ${iconSet === 0 ? "LinkedIn logos" : "App icons"}; logos untextured.`
   async function copySelection() {
     try {
       await navigator.clipboard.writeText(summary)
@@ -330,6 +331,12 @@ function IterationsPage() {
               value={cards}
               onChange={setCards}
             />
+            <Choices
+              label="Company icons"
+              values={["1 · LinkedIn logos", "2 · App icons"]}
+              value={iconSet}
+              onChange={setIconSet}
+            />
           </div>
           <div
             className={`it-experience it-heading-${heading} it-cards-${cards}`}
@@ -360,9 +367,17 @@ function IterationsPage() {
                 >
                   <div className="it-company-top">
                     <p className="experience-period">{experience.period}</p>
-                    <div className="it-logo">
+                    <div
+                      className={
+                        iconSet === 1 ? "it-logo it-app-icon" : "it-logo"
+                      }
+                    >
                       <img
-                        src={`/media/companies/${companyFiles[index]}.jpg`}
+                        src={
+                          iconSet === 0
+                            ? `/media/companies/${companyFiles[index]}.jpg`
+                            : `/media/companies/icons/${companyFiles[index]}.${index === 0 ? "ico" : "png"}`
+                        }
                         alt=""
                         width="28"
                         height="28"
@@ -376,13 +391,13 @@ function IterationsPage() {
             </div>
           </div>
           <p className="it-source-note">
-            Logos sourced from the companies’ LinkedIn pages:{" "}
-            <a href="https://www.linkedin.com/company/atlassian/">Atlassian</a>,{" "}
-            <a href="https://www.linkedin.com/company/cycleapp/">Cycle</a>,{" "}
-            <a href="https://www.linkedin.com/company/startkiosk/">Kiosk</a>,{" "}
-            <a href="https://www.linkedin.com/company/smovin/">Smovin</a>.
-            Colors are exploratory tints, not a brand specification. Logos are
-            shown without added grain.
+            App icons use{" "}
+            <a href="https://www.atlassian.com/favicon.ico">
+              Atlassian’s official favicon
+            </a>
+            , Cycle’s production app icon, and the Kiosk and Smovin files you
+            supplied. The original LinkedIn logos remain available for
+            comparison. Both sets are shown at 28px without added grain.
           </p>
         </Experiment>
         <aside className="it-selection">

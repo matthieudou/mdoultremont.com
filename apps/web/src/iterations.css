@@ -561,3 +561,11 @@
     transition: none;
   }
 }
+
+.it-app-icon {
+  border-radius: 0;
+  overflow: visible;
+}
+.it-app-icon img {
+  object-fit: contain;
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "company": "Atlassian",
+    "asset": "atlassian.ico",
+    "source": "https://www.atlassian.com/favicon.ico"
+  },
+  {
+    "company": "Cycle",
+    "asset": "cycle.png",
+    "source": "User-provided Cycle repository, packages/front/public/icon-256x256.png"
+  },
+  {
+    "company": "Kiosk",
+    "asset": "kiosk.png",
+    "source": "User attachment android-chrome-512x512.png"
+  },
+  {
+    "company": "Smovin",
+    "asset": "smovin.png",
+    "source": "User attachment icon.png"
+  }
+]
