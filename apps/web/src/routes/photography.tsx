@@ -45,7 +45,7 @@ function PhotographyPage() {
                 </p>
                 <div className="mt-10 flex flex-wrap items-center gap-5">
                   <CopyEmailButton className="inline-flex min-h-11 items-center justify-center rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-[#333]">
-                    Copy email
+                    Get in touch
                   </CopyEmailButton>
                   <a
                     className="border-b border-current py-1 text-sm font-semibold transition-colors hover:text-accent-dark"

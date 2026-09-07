@@ -58,35 +58,35 @@ export function SiteShell({
             </nav>
             <CopyEmailButton
               className="hidden min-h-[46px] cursor-pointer items-center justify-center justify-self-end rounded-full border border-[#181818] bg-linear-to-b from-[#353535] to-[#141414] px-[1.4rem] py-[0.7rem] text-[0.9rem] font-medium text-white shadow-[inset_0_1px_1px_#ffffff4d,inset_0_-1px_1px_#000,0_2px_3px_#00000024] transition-[transform,box-shadow,filter] duration-150 hover:brightness-110 active:translate-y-px active:shadow-[inset_0_2px_3px_#0006,0_1px_1px_#0002] sm:inline-flex"
-              ariaLabel="Copy email address"
+              ariaLabel="Get in touch by copying email address"
             >
-              Copy email
+              Get in touch
             </CopyEmailButton>
           </div>
         </header>
         {children}
         <footer className="relative isolate [background:radial-gradient(ellipse_at_75%_125%,rgb(142_172_203_/_55%),transparent_60%),radial-gradient(ellipse_at_20%_130%,rgb(223_154_140_/_55%),transparent_60%),#f8f7f4] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:bg-[url('/media/brand/grain.svg')] after:opacity-[0.045]">
-          <div className="mx-auto grid w-[calc(100%-2rem)] max-w-[1440px] gap-8 border-x border-line px-4 py-12 sm:w-[calc(100%-4rem)] sm:px-6 lg:w-[calc(100%-6rem)] lg:grid-cols-12 lg:gap-0 lg:px-8 lg:py-16">
-            <div className="lg:col-span-8">
+          <div className="mx-auto grid w-[calc(100%-2rem)] max-w-[1440px] gap-8 border-x border-line px-4 py-12 sm:w-[calc(100%-4rem)] sm:px-6 lg:w-[calc(100%-6rem)] lg:grid-cols-12 lg:gap-x-8 lg:gap-y-8 lg:px-8 lg:py-16">
+            {contactTitle && (
+              <h2 className="max-w-[17ch] text-[clamp(2.25rem,4.3vw,4rem)] leading-[1.05] font-medium tracking-[-0.04em] text-pretty lg:col-span-6 lg:col-start-7 lg:row-start-1">
+                {contactTitle}
+              </h2>
+            )}
+            <div className="lg:col-span-6 lg:col-start-1 lg:row-start-1">
               <p className="m-0 text-[0.8rem] leading-6 font-medium text-muted">
                 Say hello
               </p>
-              {contactTitle && (
-                <h2 className="mt-4 max-w-[17ch] text-[clamp(2.25rem,4.3vw,4rem)] leading-[1.05] font-medium tracking-[-0.04em] text-balance">
-                  {contactTitle}
-                </h2>
-              )}
               <CopyEmailButton
-                className="mt-8 block max-w-full cursor-pointer wrap-anywhere py-2 text-left text-[clamp(1.35rem,2.6vw,2.75rem)] leading-[1.2] tracking-[-0.035em] underline decoration-ink/20 decoration-px underline-offset-[0.2em] hover:decoration-current"
-                ariaLabel="Copy email address"
+                className="mt-0 block max-w-full cursor-pointer wrap-anywhere py-2 text-left text-[clamp(1.35rem,2.6vw,2.75rem)] leading-[1.2] tracking-[-0.035em] text-pretty underline decoration-ink/20 decoration-px underline-offset-[0.2em] hover:decoration-current"
+                ariaLabel="Get in touch by copying email address"
               >
                 {profile.email}
               </CopyEmailButton>
               <p className="mt-2 text-[0.8rem] text-muted">
-                Click to copy email
+                Click to copy address
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-6 text-sm text-muted lg:col-span-4 lg:self-end lg:justify-end">
+            <div className="flex flex-wrap items-center gap-6 text-pretty text-sm text-muted lg:col-span-6 lg:col-start-1 lg:row-start-2 lg:self-end">
               <a
                 className="inline-flex min-h-11 items-center text-sm font-medium underline decoration-ink/25 underline-offset-[0.35em] hover:text-accent-dark hover:decoration-current"
                 href={profile.linkedin}

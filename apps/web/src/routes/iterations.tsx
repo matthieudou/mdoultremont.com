@@ -133,7 +133,7 @@ function ButtonSample({ mode }: { mode: number }) {
         ][mode]
       }`}
     >
-      Copy email
+      Get in touch
     </CopyEmailButton>
   )
 }

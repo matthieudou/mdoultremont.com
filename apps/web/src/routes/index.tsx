@@ -6,7 +6,7 @@ import { experiences, pageCopy, profile } from "../content"
 export const Route = createFileRoute("/")({ component: ProfessionalPage })
 
 const companyLogos: Record<string, string> = {
-  Atlassian: "atlassian.ico",
+  Atlassian: "atlassian.svg",
   Cycle: "cycle.png",
   Kiosk: "kiosk.png",
   Smovin: "smovin.png",
@@ -40,7 +40,7 @@ function ProfessionalPage() {
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-5">
                 <CopyEmailButton className="inline-flex min-h-[46px] cursor-pointer items-center justify-center rounded-full border border-[#181818] bg-linear-to-b from-[#353535] to-[#141414] px-[1.4rem] py-[0.7rem] text-[0.9rem] font-medium text-white shadow-[inset_0_1px_1px_#ffffff4d,inset_0_-1px_1px_#000,0_2px_3px_#00000024] transition-[transform,box-shadow,filter] duration-150 hover:brightness-110 active:translate-y-px active:shadow-[inset_0_2px_3px_#0006,0_1px_1px_#0002]">
-                  Copy email
+                  Get in touch
                 </CopyEmailButton>
                 <a
                   className="relative inline-flex min-h-11 items-center text-sm font-medium after:pointer-events-none after:absolute after:-right-1 after:bottom-2 after:-left-1 after:h-px after:bg-[linear-gradient(90deg,transparent,#666_12%,#666_88%,transparent)] hover:after:bg-[linear-gradient(90deg,transparent,#121212_12%,#121212_88%,transparent)]"
@@ -50,9 +50,9 @@ function ProfessionalPage() {
                 </a>
               </div>
             </div>
-            <div className="grid min-w-0 place-items-end overflow-hidden lg:col-span-6">
+            <div className="grid min-w-0 place-items-center overflow-hidden lg:col-span-6">
               <img
-                className="block h-auto max-h-[360px] max-w-full object-contain object-bottom lg:h-[90%] lg:max-h-[600px]"
+                className="block h-auto max-h-[360px] max-w-full object-contain object-center lg:h-[90%] lg:max-h-[600px]"
                 src={profile.professionalPortrait}
                 alt="Matthieu d'Oultremont"
               />
@@ -84,10 +84,10 @@ function ProfessionalPage() {
                 {pageCopy.experienceIntroduction}
               </p>
             </div>
-            <div className="-mx-px grid sm:grid-cols-2 xl:grid-cols-4">
+            <div className="-mx-px grid pr-px pb-px sm:grid-cols-2 xl:grid-cols-4">
               {experiences.map((experience) => (
                 <article
-                  className="relative isolate bg-[linear-gradient(135deg,#34373b_0%,#25282c_42%,#17191d_90%)] px-4 pt-7 pb-8 before:pointer-events-none before:absolute before:inset-0 before:border-t before:border-l before:border-white/12 last:before:border-r after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:bg-[url('/media/brand/grain.svg')] after:opacity-12 after:mix-blend-soft-light sm:px-6 xl:px-8"
+                  className="relative isolate -mr-px -mb-px bg-[linear-gradient(to_bottom_left,#34373b_0%,#25282c_42%,#17191d_90%)] px-4 pt-7 pb-8 before:pointer-events-none before:absolute before:inset-0 before:border before:border-white/12 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:bg-[url('/media/brand/grain.svg')] after:opacity-12 after:mix-blend-soft-light sm:px-6 xl:px-8"
                   key={experience.company}
                 >
                   <div className="flex min-h-9 items-center justify-between gap-4">
