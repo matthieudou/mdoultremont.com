@@ -15,8 +15,19 @@ export const Route = createFileRoute("/iterations")({
   component: IterationsPage,
 })
 
-const brandColors = ["#3c77ff", "#6566ed", "#547eff", "#438ebd"]
-const companyFiles = ["atlassian", "cycle", "kiosk", "smovin"]
+const companyVisuals: Record<
+  string,
+  { color: string; portrait: string; icon: string }
+> = {
+  Atlassian: {
+    color: "#3c77ff",
+    portrait: "atlassian",
+    icon: "atlassian.svg",
+  },
+  Cycle: { color: "#6566ed", portrait: "cycle", icon: "cycle.png" },
+  Kiosk: { color: "#547eff", portrait: "kiosk", icon: "kiosk.png" },
+  Smovin: { color: "#438ebd", portrait: "smovin", icon: "smovin.png" },
+}
 
 function Choices({
   label,
@@ -437,56 +448,64 @@ function IterationsPage() {
               )}
             </div>
             <div className="-mx-px grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
-              {experiences.map((experience, index) => (
-                <article
-                  className={`relative isolate p-7 before:pointer-events-none before:absolute before:inset-0 before:border-t before:border-l before:border-white/12 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:bg-[url('/media/brand/grain.svg')] after:opacity-[var(--grain)] after:mix-blend-soft-light last:before:border-r sm:nth-[2n]:before:border-r xl:nth-[2n]:before:border-r-0 ${
-                    [
-                      "bg-[radial-gradient(ellipse_at_5%_0%,color-mix(in_srgb,var(--company-color)_22%,transparent),transparent_75%)]",
-                      "bg-[linear-gradient(145deg,color-mix(in_srgb,var(--company-color)_25%,#17191d),#17191d)]",
-                      "bg-[linear-gradient(135deg,#34373b_0%,#25282c_42%,#17191d_90%)]",
-                    ][cards]
-                  }`}
-                  key={experience.company}
-                  style={
-                    { "--company-color": brandColors[index] } as CSSProperties
-                  }
-                >
-                  <div className="flex min-h-9 items-center justify-between gap-4">
-                    <p className="text-[0.8rem] text-[#b9bcc2]">
-                      {experience.period}
-                    </p>
-                    <div
-                      className={
-                        iconSet === 1
-                          ? "size-7 shrink-0"
-                          : "size-7 shrink-0 overflow-hidden rounded-md"
-                      }
-                    >
-                      <img
-                        src={
-                          iconSet === 0
-                            ? `/media/companies/${companyFiles[index]}.jpg`
-                            : `/media/companies/icons/${companyFiles[index]}.${index === 0 ? "ico" : "png"}`
-                        }
+              {experiences.map((experience) => {
+                const visual = companyVisuals[experience.company]
+
+                return (
+                  <article
+                    className={`relative isolate p-7 before:pointer-events-none before:absolute before:inset-0 before:border-t before:border-l before:border-white/12 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:bg-[url('/media/brand/grain.svg')] after:opacity-[var(--grain)] after:mix-blend-soft-light last:before:border-r sm:nth-[2n]:before:border-r xl:nth-[2n]:before:border-r-0 ${
+                      [
+                        "bg-[radial-gradient(ellipse_at_5%_0%,color-mix(in_srgb,var(--company-color)_22%,transparent),transparent_75%)]",
+                        "bg-[linear-gradient(145deg,color-mix(in_srgb,var(--company-color)_25%,#17191d),#17191d)]",
+                        "bg-[linear-gradient(135deg,#34373b_0%,#25282c_42%,#17191d_90%)]",
+                      ][cards]
+                    }`}
+                    key={experience.company}
+                    style={
+                      {
+                        "--company-color": visual?.color ?? "#6f7b8b",
+                      } as CSSProperties
+                    }
+                  >
+                    <div className="flex min-h-9 items-center justify-between gap-4">
+                      <p className="text-[0.8rem] text-[#b9bcc2]">
+                        {experience.period}
+                      </p>
+                      <div
                         className={
                           iconSet === 1
-                            ? "size-full object-contain"
-                            : "size-full"
+                            ? "size-7 shrink-0"
+                            : "size-7 shrink-0 overflow-hidden rounded-md"
                         }
-                        alt=""
-                        width="28"
-                        height="28"
-                      />
+                      >
+                        {visual && (
+                          <img
+                            src={
+                              iconSet === 0
+                                ? `/media/companies/${visual.portrait}.jpg`
+                                : `/media/companies/icons/${visual.icon}`
+                            }
+                            className={
+                              iconSet === 1
+                                ? "size-full object-contain"
+                                : "size-full"
+                            }
+                            alt=""
+                            width="28"
+                            height="28"
+                          />
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  <h3 className="mt-6 text-[clamp(1.7rem,2.5vw,2.75rem)] leading-[1.1] font-medium tracking-[-0.04em]">
-                    {experience.company}
-                  </h3>
-                  <p className="mt-6 max-w-[36ch] text-[0.95rem] leading-[1.6] text-[#dddeda]">
-                    {experience.summary}
-                  </p>
-                </article>
-              ))}
+                    <h3 className="mt-6 text-[clamp(1.7rem,2.5vw,2.75rem)] leading-[1.1] font-medium tracking-[-0.04em]">
+                      {experience.company}
+                    </h3>
+                    <p className="mt-6 max-w-[36ch] text-[0.95rem] leading-[1.6] text-[#dddeda]">
+                      {experience.summary}
+                    </p>
+                  </article>
+                )
+              })}
             </div>
           </div>
           <p className="mt-4 max-w-[90ch] text-[0.8rem] leading-[1.6] text-muted [&_a]:underline">
