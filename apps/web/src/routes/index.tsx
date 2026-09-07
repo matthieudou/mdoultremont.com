@@ -50,9 +50,9 @@ function ProfessionalPage() {
                 </a>
               </div>
             </div>
-            <div className="grid min-w-0 place-items-center overflow-hidden lg:col-span-6">
+            <div className="grid min-w-0 justify-items-center overflow-hidden items-end lg:col-span-6">
               <img
-                className="block h-auto max-h-[360px] max-w-full object-contain object-center lg:h-[90%] lg:max-h-[600px]"
+                className="block h-auto max-h-[360px] max-w-full object-contain object-bottom lg:h-[90%] lg:max-h-[600px]"
                 src={profile.professionalPortrait}
                 alt="Matthieu d'Oultremont"
               />
