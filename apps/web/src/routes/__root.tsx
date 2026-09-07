@@ -61,7 +61,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="min-w-80 bg-paper font-sans text-ink antialiased [text-rendering:optimizeLegibility]">
         {children}
         <Scripts />
       </body>

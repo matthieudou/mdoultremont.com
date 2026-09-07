@@ -1,43 +1,43 @@
 [
   {
     "src": "/media/photography/DSCF7103.jpg",
-    "title": "Quiet water",
-    "location": "Sardinia, Italy",
+    "location": "Sardinia",
+    "year": 2021,
     "published": true,
     "order": 1
   },
   {
     "src": "/media/photography/DSCF7120.jpg",
-    "title": "After the climb",
-    "location": "Sardinia, Italy",
+    "location": "Sardinia",
+    "year": 2021,
     "published": true,
     "order": 2
   },
   {
     "src": "/media/photography/DSCF7229.jpg",
-    "title": "Rock study",
-    "location": "Sardinia, Italy",
+    "location": "Sardinia",
+    "year": 2021,
     "published": true,
     "order": 3
   },
   {
     "src": "/media/photography/DSCF7232.jpg",
-    "title": "Blue hour",
-    "location": "Sardinia, Italy",
+    "location": "Sardinia",
+    "year": 2021,
     "published": true,
     "order": 4
   },
   {
     "src": "/media/photography/DSCF7327.jpg",
-    "title": "The long way",
-    "location": "Sardinia, Italy",
+    "location": "Sardinia",
+    "year": 2021,
     "published": true,
     "order": 5
   },
   {
     "src": "/media/photography/DSCF7379.jpg",
-    "title": "A pause",
-    "location": "Sardinia, Italy",
+    "location": "Sardinia",
+    "year": 2021,
     "published": true,
     "order": 6
   }

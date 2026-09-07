@@ -14,51 +14,24 @@
     "Segoe UI", sans-serif;
 }
 
-@layer base {
-  html {
-    min-width: 20rem;
-  }
-  body {
-    min-width: 20rem;
-    margin: 0;
-    background: var(--color-paper);
-    color: var(--color-ink);
-    font-family: var(--font-sans);
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-  button,
-  a {
-    -webkit-tap-highlight-color: transparent;
-  }
-  :focus-visible {
-    outline: 2px solid var(--color-accent-dark);
-    outline-offset: 3px;
-  }
+::view-transition-group(portfolio-underline) {
+  animation-duration: 320ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
-
-.look-at-pointer {
-  --gaze-x: 50%;
-  --gaze-y: 50%;
-  --gaze-scale: 1;
-  background-position: var(--gaze-x) var(--gaze-y);
-  background-repeat: no-repeat;
-  background-size: 500% 500%;
-  transform: scale(var(--gaze-scale));
-  transition: transform 180ms ease-out;
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
 }
-
-.face-animation {
-  background-repeat: no-repeat;
-  background-size: 900% 400%;
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+
+  ::view-transition-group(*) {
     animation-duration: 0.01ms !important;
   }
 }

@@ -1,160 +1,121 @@
 import { createFileRoute } from "@tanstack/react-router"
-import { useState } from "react"
 import { CopyEmailButton } from "../components/copy-email-button"
-import { ExperienceDialog } from "../components/experience-dialog"
 import { SiteShell } from "../components/site-shell"
 import { experiences, pageCopy, profile } from "../content"
-import type { Experience } from "../content"
 
 export const Route = createFileRoute("/")({ component: ProfessionalPage })
 
-const eyebrowClass =
-  "m-0 text-[0.7rem] font-bold tracking-[0.12em] text-muted uppercase"
-const displayClass = "leading-[0.9] font-medium tracking-[-0.065em]"
+const companyLogos: Record<string, string> = {
+  Atlassian: "atlassian.svg",
+  Cycle: "cycle.png",
+  Kiosk: "kiosk.png",
+  Smovin: "smovin.png",
+}
 
 function ProfessionalPage() {
-  const [selectedExperience, setSelectedExperience] =
-    useState<Experience | null>(null)
-
   return (
-    <SiteShell>
+    <SiteShell contactTitle={pageCopy.nextChapterTitle}>
       <main>
         <section className="border-b border-line">
-          <div className="mx-auto grid w-[calc(100%-2rem)] max-w-360 gap-12 border-x border-line sm:w-[calc(100%-4rem)] lg:w-[calc(100%-6rem)] lg:grid-cols-2 lg:items-stretch lg:gap-8">
-            <div className="px-4 py-12 sm:px-6 sm:py-16 lg:py-24 lg:pl-8 lg:pr-0">
+          <div className="relative isolate mx-auto grid w-[calc(100%-2rem)] max-w-[1440px] overflow-hidden border-x border-line [background:radial-gradient(ellipse_at_90%_20%,#a2badc55,transparent_65%),radial-gradient(ellipse_at_30%_115%,#e7a98c66,transparent_75%),#f8f7f4] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:bg-[url('/media/brand/hero-grain.svg')] before:opacity-12 before:mix-blend-multiply sm:w-[calc(100%-4rem)] lg:w-[calc(100%-6rem)] lg:grid-cols-12">
+            <div className="px-4 pt-12 pb-8 sm:px-6 lg:col-span-6 lg:px-8 lg:py-20">
               {profile.available && (
-                <span className="mb-10 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1.5 text-[0.7rem] font-bold tracking-[0.08em] text-accent-dark uppercase">
-                  <span className="relative flex size-2" aria-hidden="true">
-                    <span className="absolute inline-flex size-full rounded-full bg-emerald-400 opacity-70 motion-safe:animate-ping motion-safe:[animation-duration:2.4s]" />
-                    <span className="relative inline-flex size-2 rounded-full bg-emerald-500 shadow-[0_0_8px_2px_rgb(16_185_129/0.45)]" />
-                  </span>
+                <span className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-[#d8d7d3] bg-linear-to-b from-white to-[#eeede9] px-3.5 py-2 text-[0.8rem] text-[#625f59] shadow-[inset_0_1px_1px_#fff,inset_0_-1px_1px_#00000008,0_2px_3px_#00000006]">
+                  <span
+                    aria-hidden="true"
+                    className="size-[7px] rounded-full bg-[radial-gradient(circle_at_35%_25%,#75b58e,#30734d_80%)] shadow-[0_0_0_2px_#39825a0a]"
+                  />
                   {profile.availabilityLabel}
                 </span>
               )}
-              <p className={eyebrowClass}>{profile.professionalEyebrow}</p>
-              <h1
-                className={`${displayClass} mt-4 max-w-[11ch] text-[clamp(4rem,9vw,9rem)]`}
-              >
+              <p className="m-0 text-[0.8rem] leading-6 font-medium text-muted">
+                {profile.professionalEyebrow}
+              </p>
+              <h1 className="mt-4 text-[clamp(3.5rem,9vw,9rem)] leading-none font-medium tracking-[-0.055em]">
                 {profile.firstName}
                 <span className="text-accent">.</span>
               </h1>
-              <p className="mt-8 max-w-136 text-[clamp(1rem,1.35vw,1.2rem)] leading-[1.55] text-muted">
+              <p className="mt-7 max-w-[48ch] text-[clamp(1rem,1.35vw,1.2rem)] leading-[1.65] text-pretty text-muted">
                 {profile.professionalIntroduction}
               </p>
-              <div className="mt-10 flex flex-wrap items-center gap-5">
-                <CopyEmailButton className="inline-flex min-h-11 items-center justify-center rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-[#333]">
+              <div className="mt-8 flex flex-wrap items-center gap-5">
+                <CopyEmailButton className="inline-flex min-h-[46px] cursor-pointer items-center justify-center rounded-full border border-[#181818] bg-linear-to-b from-[#353535] to-[#141414] px-[1.4rem] py-[0.7rem] text-[0.9rem] font-medium text-white shadow-[inset_0_1px_1px_#ffffff4d,inset_0_-1px_1px_#000,0_2px_3px_#00000024] transition-[transform,box-shadow,filter] duration-150 hover:brightness-110 active:translate-y-px active:shadow-[inset_0_2px_3px_#0006,0_1px_1px_#0002]">
                   Get in touch
                 </CopyEmailButton>
                 <a
-                  className="border-b border-current py-1 text-sm font-semibold transition-colors hover:text-accent-dark"
+                  className="relative inline-flex min-h-11 items-center text-sm font-medium after:pointer-events-none after:absolute after:-right-1 after:bottom-2 after:-left-1 after:h-px after:bg-[linear-gradient(90deg,transparent,#666_12%,#666_88%,transparent)] hover:after:bg-[linear-gradient(90deg,transparent,#121212_12%,#121212_88%,transparent)]"
                   href="#experience"
                 >
                   See my experience
                 </a>
               </div>
             </div>
-            <div className="relative self-stretch lg:mr-16">
+            <div className="grid min-w-0 justify-items-center overflow-hidden items-end lg:col-span-6">
               <img
-                className="block h-auto w-full object-contain object-bottom lg:absolute lg:bottom-0 lg:left-1/2 lg:h-[90%] lg:w-auto lg:max-w-full lg:-translate-x-1/2"
+                className="block h-auto max-h-[360px] max-w-full object-contain object-bottom lg:h-[90%] lg:max-h-[600px]"
                 src={profile.professionalPortrait}
                 alt="Matthieu d'Oultremont"
               />
             </div>
           </div>
         </section>
-
         <section
           className="border-b border-line"
           aria-label="Short introduction"
         >
-          <div className="mx-auto w-[calc(100%-2rem)] max-w-360 border-x border-line px-4 py-16 sm:w-[calc(100%-4rem)] sm:px-6 sm:py-20 lg:w-[calc(100%-6rem)] lg:px-8 lg:py-24">
-            <p
-              className={`${displayClass} mx-auto max-w-[18ch] text-center text-[clamp(2.8rem,6.2vw,7.2rem)]`}
-            >
+          <div className="mx-auto w-[calc(100%-2rem)] max-w-[1440px] border-x border-line px-4 py-12 sm:w-[calc(100%-4rem)] sm:px-6 lg:w-[calc(100%-6rem)] lg:px-8 lg:py-16">
+            <p className="mx-auto max-w-[36ch] text-center text-[clamp(1.8rem,3.4vw,3.25rem)] leading-[1.18] font-medium tracking-[-0.035em] text-balance">
               {pageCopy.professionalStatement}
             </p>
           </div>
         </section>
-
         <section
-          className="border-b border-line-dark bg-charcoal text-paper"
+          className="relative isolate scroll-mt-20 [background:radial-gradient(ellipse_at_10%_0%,rgb(142_172_203_/_13%),transparent_60%),#171717] text-paper after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:bg-[url('/media/brand/grain.svg')] after:opacity-[0.045]"
           id="experience"
         >
-          <div className="mx-auto w-[calc(100%-2rem)] max-w-360 border-x border-line-dark py-16 sm:w-[calc(100%-4rem)] sm:py-20 lg:w-[calc(100%-6rem)] lg:py-24">
-            <div className="grid items-end gap-8 px-4 pb-12 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
-              <div>
-                <p className={`${eyebrowClass} text-[#aaa8a2]`}>
-                  {pageCopy.experienceEyebrow}
-                </p>
-                <h2
-                  className={`${displayClass} mt-4 max-w-[12ch] text-[clamp(2.9rem,5.4vw,6.25rem)]`}
-                >
+          <div className="mx-auto w-[calc(100%-2rem)] max-w-[1440px] border-x border-white/10 pb-12 sm:w-[calc(100%-4rem)] lg:w-[calc(100%-6rem)] lg:pb-16">
+            <div className="grid items-center gap-6 px-4 pt-12 pb-8 sm:px-6 lg:grid-cols-12 lg:gap-0 lg:px-0 lg:pt-16 lg:pb-12">
+              <div className="lg:col-span-6">
+                <h2 className="mt-4 max-w-[17ch] text-[clamp(2.25rem,4.3vw,4rem)] leading-[1.05] font-medium tracking-[-0.04em] text-balance lg:mx-8">
                   {pageCopy.experienceTitle}
                 </h2>
               </div>
-              <p className="max-w-xl text-[clamp(1rem,1.35vw,1.2rem)] leading-[1.55] text-[#aaa8a2]">
+              <p className="max-w-[48ch] border-l border-white/20 pl-6 text-[clamp(1.1rem,1.8vw,1.5rem)] leading-[1.65] text-pretty text-[#b9bcc2] lg:mx-8 lg:col-span-6">
                 {pageCopy.experienceIntroduction}
               </p>
             </div>
-            <div className="grid grid-cols-1 border-t border-line-dark sm:grid-cols-2 xl:grid-cols-4">
-              {experiences.map((experience, index) => (
-                <button
-                  className={[
-                    "grid min-h-48 w-full cursor-pointer grid-cols-[1fr_auto] grid-rows-[auto_1fr] gap-5 border-b border-line-dark bg-transparent p-5 text-left text-inherit transition-colors hover:bg-[#242424] sm:min-h-56 sm:p-6 xl:min-h-52",
-                    index % 2 === 0 ? "sm:border-r" : "",
-                    index < experiences.length - 1 ? "xl:border-r" : "",
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
+            <div className="-mx-px grid pr-px pb-px sm:grid-cols-2 xl:grid-cols-4">
+              {experiences.map((experience) => (
+                <article
+                  className="relative isolate -mr-px -mb-px bg-[linear-gradient(to_bottom_left,#34373b_0%,#25282c_42%,#17191d_90%)] px-4 pt-7 pb-8 before:pointer-events-none before:absolute before:inset-0 before:border before:border-white/12 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:bg-[url('/media/brand/grain.svg')] after:opacity-12 after:mix-blend-soft-light sm:px-6 xl:px-8"
                   key={experience.company}
-                  type="button"
-                  onClick={() => setSelectedExperience(experience)}
                 >
-                  <span className="text-[0.68rem] font-bold tracking-widest text-[#aaa8a2] uppercase">
-                    0{index + 1}
-                  </span>
-                  <span className="text-right text-[0.68rem] font-bold tracking-widest text-[#aaa8a2] uppercase">
-                    {experience.period}
-                  </span>
-                  <span className="col-span-2 self-end">
-                    <strong className="block text-[clamp(1.75rem,2.6vw,3rem)] leading-[0.9] font-medium tracking-[-0.06em]">
-                      {experience.company}
-                    </strong>
-                    <span className="mt-2 block text-sm text-[#aaa8a2]">
-                      {experience.role}
-                    </span>
-                  </span>
-                </button>
+                  <div className="flex min-h-9 items-center justify-between gap-4">
+                    <p className="text-[0.8rem] text-[#b9bcc2]">
+                      {experience.period}
+                    </p>
+                    {companyLogos[experience.company] && (
+                      <img
+                        className="size-7 shrink-0 object-contain"
+                        src={`/media/companies/icons/${companyLogos[experience.company]}`}
+                        alt=""
+                        width="28"
+                        height="28"
+                      />
+                    )}
+                  </div>
+                  <h3 className="mt-6 text-[clamp(1.75rem,2.5vw,2.75rem)] leading-[1.1] font-medium tracking-[-0.04em] text-balance">
+                    {experience.company}
+                  </h3>
+                  <p className="mt-6 max-w-[36ch] text-[0.95rem] leading-[1.6] text-[#dddeda]">
+                    {experience.summary}
+                  </p>
+                </article>
               ))}
             </div>
           </div>
         </section>
-
-        <section>
-          <div className="mx-auto w-[calc(100%-2rem)] max-w-360 border-x border-line py-16 sm:w-[calc(100%-4rem)] sm:py-20 lg:w-[calc(100%-6rem)] lg:py-24">
-            <div className="grid items-end gap-10 px-4 sm:px-6 lg:grid-cols-[1.2fr_auto] lg:px-8">
-              <div>
-                <p className={eyebrowClass}>{pageCopy.nextChapterEyebrow}</p>
-                <h2
-                  className={`${displayClass} mt-4 max-w-[12ch] text-[clamp(3rem,6vw,7rem)]`}
-                >
-                  {pageCopy.nextChapterTitle}
-                </h2>
-                <p className="mt-6 max-w-120 text-[clamp(1rem,1.35vw,1.2rem)] leading-[1.55] text-muted">
-                  If it sounds like a fit, drop me a line.
-                </p>
-              </div>
-              <CopyEmailButton className="inline-flex min-h-11 w-fit items-center justify-center rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-[#333]">
-                Get in touch
-              </CopyEmailButton>
-            </div>
-          </div>
-        </section>
       </main>
-      <ExperienceDialog
-        experience={selectedExperience}
-        onClose={() => setSelectedExperience(null)}
-      />
     </SiteShell>
   )
 }

@@ -1,6 +1,7 @@
 import { Dialog } from "@base-ui/react/dialog"
 import { createFileRoute } from "@tanstack/react-router"
-import { useState } from "react"
+import { useRef, useState } from "react"
+import { useHotkey } from "@tanstack/react-hotkeys"
 import { SiteShell } from "../components/site-shell"
 import { pageCopy, photographs, profile } from "../content"
 import type { Photograph } from "../content"
@@ -11,12 +12,21 @@ export const Route = createFileRoute("/photography")({
 })
 
 function PhotographyPage() {
-  const [selectedPhoto, setSelectedPhoto] = useState<Photograph | null>(null)
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+  const selectedPhoto =
+    selectedIndex === null ? null : photographs[selectedIndex]
+
+  const selectAdjacent = (direction: -1 | 1) => {
+    setSelectedIndex((current) => {
+      if (current === null) return null
+      return (current + direction + photographs.length) % photographs.length
+    })
+  }
 
   return (
     <Dialog.Root
       open={selectedPhoto !== null}
-      onOpenChange={(open) => !open && setSelectedPhoto(null)}
+      onOpenChange={(open) => !open && setSelectedIndex(null)}
     >
       <SiteShell>
         <main>
@@ -60,23 +70,23 @@ function PhotographyPage() {
             id="collection"
           >
             <div className="mx-auto w-[calc(100%-2rem)] max-w-[1440px] columns-1 gap-6 border-x border-line px-4 py-16 sm:w-[calc(100%-4rem)] sm:px-6 sm:py-20 md:columns-2 lg:w-[calc(100%-6rem)] lg:columns-3 lg:px-8 lg:py-24">
-              {photographs.map((photo) => (
+              {photographs.map((photo, index) => (
                 <button
                   className="mb-8 inline-block w-full cursor-zoom-in break-inside-avoid bg-transparent text-left"
-                  key={photo.title}
+                  key={photo.src}
                   type="button"
-                  onClick={() => setSelectedPhoto(photo)}
+                  aria-label={`View photograph ${index + 1}: ${photo.location} ${photo.year}`}
+                  onClick={() => setSelectedIndex(index)}
                 >
                   <img
-                    className="block w-full rounded-xl border border-line transition-transform hover:scale-[1.012]"
+                    className="block w-full rounded-sm transition-opacity hover:opacity-95"
                     src={photo.src}
-                    alt={`${photo.title}, ${photo.location}`}
+                    alt={`Photograph taken in ${photo.location}, ${photo.year}`}
                     loading="lazy"
                     decoding="async"
                   />
-                  <span className="flex items-start justify-between gap-4 border-b border-line py-3">
-                    <strong className="text-sm">{photo.title}</strong>
-                    <span className="text-xs text-muted">{photo.location}</span>
+                  <span className="block py-3 text-sm text-muted">
+                    {photo.location} {photo.year}
                   </span>
                 </button>
               ))}
@@ -84,32 +94,77 @@ function PhotographyPage() {
           </section>
         </main>
       </SiteShell>
-      {selectedPhoto && (
+      {selectedPhoto && selectedIndex !== null && (
         <Dialog.Portal>
           <Dialog.Backdrop className="fixed inset-0 z-100 bg-[#111111d9] backdrop-blur-lg" />
           <Dialog.Viewport className="fixed inset-0 z-101 grid min-h-dvh place-items-center p-4">
-            <Dialog.Popup className="relative w-fit max-w-[min(75rem,100%)] outline-none">
-              <Dialog.Close
-                className="absolute top-4 right-4 cursor-pointer rounded-full border border-[#555] bg-charcoal px-4 py-2 text-xs font-semibold text-paper"
-                aria-label="Close photograph"
-              >
-                Close
-              </Dialog.Close>
-              <img
-                className="block max-h-[calc(100dvh-6rem)] max-w-full rounded-xl"
-                src={selectedPhoto.src}
-                alt={`${selectedPhoto.title}, ${selectedPhoto.location}`}
-              />
-              <div className="flex justify-between gap-8 pt-3 text-paper">
-                <Dialog.Title>{selectedPhoto.title}</Dialog.Title>
-                <Dialog.Description>
-                  {selectedPhoto.location}
-                </Dialog.Description>
-              </div>
-            </Dialog.Popup>
+            <PhotographDialog
+              photo={selectedPhoto}
+              index={selectedIndex}
+              onNavigate={selectAdjacent}
+            />
           </Dialog.Viewport>
         </Dialog.Portal>
       )}
     </Dialog.Root>
+  )
+}
+
+function PhotographDialog({
+  photo,
+  index,
+  onNavigate,
+}: {
+  photo: Photograph
+  index: number
+  onNavigate: (direction: -1 | 1) => void
+}) {
+  const popupRef = useRef<HTMLDivElement>(null)
+
+  // Dialog stops arrow-key propagation; listen on the popup itself.
+  // Mounting with the popup ensures its ref exists when hotkeys register.
+  useHotkey("ArrowLeft", () => onNavigate(-1), { target: popupRef })
+  useHotkey("ArrowRight", () => onNavigate(1), { target: popupRef })
+
+  return (
+    <Dialog.Popup
+      ref={popupRef}
+      className="relative w-fit max-w-[min(75rem,100%)] outline-none"
+    >
+      <Dialog.Close
+        className="absolute top-4 right-4 min-h-11 cursor-pointer rounded-full border border-[#555] bg-charcoal px-4 py-2 text-xs font-semibold text-paper"
+        aria-label="Close photograph"
+      >
+        Close
+      </Dialog.Close>
+      <img
+        className="block max-h-[calc(100dvh-6rem)] max-w-full rounded-xl"
+        src={photo.src}
+        alt={`Photograph taken in ${photo.location}, ${photo.year}`}
+      />
+      <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 pt-3 text-paper">
+        <button
+          className="min-h-11 rounded-full px-3 py-2 text-sm hover:bg-white/10"
+          type="button"
+          onClick={() => onNavigate(-1)}
+          aria-label="Previous photograph"
+          aria-keyshortcuts="ArrowLeft"
+        >
+          Previous
+        </button>
+        <Dialog.Title className="min-w-0 truncate text-center text-sm font-medium">
+          {photo.location} {photo.year} · {index + 1} of {photographs.length}
+        </Dialog.Title>
+        <button
+          className="min-h-11 rounded-full px-3 py-2 text-sm hover:bg-white/10"
+          type="button"
+          onClick={() => onNavigate(1)}
+          aria-label="Next photograph"
+          aria-keyshortcuts="ArrowRight"
+        >
+          Next
+        </button>
+      </div>
+    </Dialog.Popup>
   )
 }

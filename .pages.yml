@@ -58,17 +58,9 @@ content:
           required: true,
         }
       - { name: role, label: Role, type: string, required: true }
-      - { name: period, label: Displayed period, type: string, required: true }
-      - { name: startDate, label: Start date, type: date }
+      - { name: startDate, label: Start date, type: date, required: true }
       - { name: endDate, label: End date, type: date }
-      - name: accent
-        label: Accent colour
-        type: select
-        required: true
-        options:
-          values: [blue, lilac, orange, lime]
       - { name: summary, label: Summary, type: text, required: true }
-      - { name: prompt, label: Longer story, type: text }
       - { name: published, label: Published, type: boolean, default: true }
       - { name: order, label: Display order, type: number, required: true }
 
@@ -152,8 +144,8 @@ content:
         options:
           input: apps/web/public/media/photography
           output: /media/photography
-      - { name: title, label: Title, type: string, required: true }
       - { name: location, label: Location, type: string, required: true }
+      - { name: year, label: Year taken, type: number, required: true }
       - { name: published, label: Published, type: boolean, default: true }
       - { name: order, label: Display order, type: number, required: true }
 
@@ -217,8 +209,14 @@ content:
           name: maxAltitudeMeters,
           label: Maximum altitude in metres,
           type: number,
+          required: true,
         }
-      - { name: maxSpeedKph, label: Maximum speed in km/h, type: number }
+      - {
+          name: maxSpeedKph,
+          label: Maximum speed in km/h,
+          type: number,
+          required: true,
+        }
       - name: trace
         label: GPX or IGC trace
         type: file
