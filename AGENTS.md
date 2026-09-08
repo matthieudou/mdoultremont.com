@@ -9,6 +9,11 @@
   resolves them.
 - Treat the JSON files under `apps/web/content` as production content.
 
+## GitHub issue lifecycle
+
+- When opening a pull request for work created by `to-tickets`, include a `Closes #<number>` line for the parent issue and every completed child ticket. GitHub closes those issues when the pull request merges.
+- Keep issue dependency and parent relationships in the issues themselves; use the pull request description for merge-time closing references.
+
 ## Agent skills
 
 ### Issue tracker
