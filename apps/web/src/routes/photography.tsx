@@ -143,7 +143,7 @@ function PhotographDialog({
         Close
       </Dialog.Close>
       <ResponsiveImage
-        className="block max-h-[calc(100dvh-6rem)] max-w-full rounded-xl"
+        className="block h-auto w-auto max-h-[calc(100dvh-6rem)] max-w-full rounded-xl object-contain"
         src={photo.src}
         image={metadata[photo.src]}
         sizes="min(75rem, 100vw)"
