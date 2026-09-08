@@ -6,6 +6,8 @@ import { SiteShell } from "../components/site-shell"
 import { pageCopy, photographs, profile } from "../content"
 import type { Photograph } from "../content"
 import { CopyEmailButton } from "../components/copy-email-button"
+import { ResponsiveImage } from "../components/responsive-image"
+import { metadata } from "../image-metadata"
 
 export const Route = createFileRoute("/photography")({
   component: PhotographyPage,
@@ -56,9 +58,10 @@ function PhotographyPage() {
                 </div>
               </div>
               <div className="relative self-stretch lg:overflow-hidden">
-                <img
+                <ResponsiveImage
                   className="mx-auto block w-full max-w-sm object-contain object-bottom lg:absolute lg:bottom-0 lg:left-1/2 lg:h-full lg:w-auto lg:max-w-full lg:-translate-x-1/2"
                   src={profile.photographyPortrait}
+                  image={metadata[profile.photographyPortrait]}
                   alt="Matthieu holding an instant camera"
                 />
               </div>
@@ -78,9 +81,11 @@ function PhotographyPage() {
                   aria-label={`View photograph ${index + 1}: ${photo.location} ${photo.year}`}
                   onClick={() => setSelectedIndex(index)}
                 >
-                  <img
+                  <ResponsiveImage
                     className="block w-full rounded-sm transition-opacity hover:opacity-95"
                     src={photo.src}
+                    image={metadata[photo.src]}
+                    sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
                     alt={`Photograph taken in ${photo.location}, ${photo.year}`}
                     loading="lazy"
                     decoding="async"
@@ -137,9 +142,11 @@ function PhotographDialog({
       >
         Close
       </Dialog.Close>
-      <img
-        className="block max-h-[calc(100dvh-6rem)] max-w-full rounded-xl"
+      <ResponsiveImage
+        className="block h-auto w-auto max-h-[calc(100dvh-6rem)] max-w-full rounded-xl object-contain"
         src={photo.src}
+        image={metadata[photo.src]}
+        sizes="min(75rem, 100vw)"
         alt={`Photograph taken in ${photo.location}, ${photo.year}`}
       />
       <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 pt-3 text-paper">
