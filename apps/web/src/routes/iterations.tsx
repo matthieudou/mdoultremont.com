@@ -4,6 +4,8 @@ import type { CSSProperties, ReactNode } from "react"
 import { SiteShell } from "../components/site-shell"
 import { CopyEmailButton } from "../components/copy-email-button"
 import { experiences, pageCopy, profile } from "../content"
+import { ResponsiveImage } from "../components/responsive-image"
+import { metadata } from "../image-metadata"
 
 export const Route = createFileRoute("/iterations")({
   head: () => ({
@@ -349,9 +351,10 @@ function IterationsPage() {
               </div>
             </div>
             <div className="flex min-w-0 items-end justify-center">
-              <img
+              <ResponsiveImage
                 className="max-h-[540px] max-w-full object-contain object-bottom max-sm:max-h-[330px]"
                 src={profile.professionalPortrait}
+                image={metadata[profile.professionalPortrait]}
                 alt="Matthieu d'Oultremont"
               />
             </div>

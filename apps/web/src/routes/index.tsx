@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router"
 import { CopyEmailButton } from "../components/copy-email-button"
 import { SiteShell } from "../components/site-shell"
 import { experiences, pageCopy, profile } from "../content"
+import { ResponsiveImage } from "../components/responsive-image"
+import { metadata } from "../image-metadata"
 
 export const Route = createFileRoute("/")({ component: ProfessionalPage })
 
@@ -51,9 +53,10 @@ function ProfessionalPage() {
               </div>
             </div>
             <div className="grid min-w-0 justify-items-center overflow-hidden items-end lg:col-span-6">
-              <img
+              <ResponsiveImage
                 className="block h-auto max-h-[360px] max-w-full object-contain object-bottom lg:h-[90%] lg:max-h-[600px]"
                 src={profile.professionalPortrait}
+                image={metadata[profile.professionalPortrait]}
                 alt="Matthieu d'Oultremont"
               />
             </div>
