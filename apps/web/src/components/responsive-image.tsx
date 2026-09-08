@@ -5,7 +5,7 @@ const widths = [320, 480, 640, 768, 1024, 1280, 1536]
 
 export function imageUrl(src: string, width: number, version: string) {
   const options = `width=${width},fit=scale-down,quality=80,format=auto,onerror=redirect`
-  return `/cdn-cgi/image/${options}${src}?v=${version}`
+  return `https://mdoultremont.com/cdn-cgi/image/${options}${src}?v=${version}`
 }
 
 type Props = Omit<
