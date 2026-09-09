@@ -1,6 +1,15 @@
-import { useEffect, useState } from "react"
-import type { CSSProperties, PointerEvent as ReactPointerEvent } from "react"
-import faceSpriteUrl from "./sprite.png"
+import { useEffect, useRef, useState } from "react"
+import type { CSSProperties } from "react"
+import { metadata } from "../../image-metadata"
+import { imageUrl } from "../responsive-image"
+import {
+  hoverAnimations,
+  idleAnimation,
+  imageCandidates,
+  loadSprite,
+  staticSource,
+} from "./animations"
+import type { FaceSprite } from "./animations"
 
 export type FaceAnimationProps = {
   className?: string
@@ -8,131 +17,167 @@ export type FaceAnimationProps = {
   withIdle?: boolean
 }
 
-const columnCount = 9
-const rowCount = 4
-
-const animations = {
-  reference: { row: 0, frameCount: 1, frameDurationMs: 0 },
-  idle: { row: 1, frameCount: 9, frameDurationMs: 200 },
-  blink: { row: 2, frameCount: 9, frameDurationMs: 70 },
-  wink: { row: 3, frameCount: 9, frameDurationMs: 80 },
-} as const
-
-type AnimationName = keyof typeof animations
-type HoverAnimationName = "blink" | "wink"
-
 type Playback = {
-  animation: AnimationName
-  frameIndex: number
-}
-
-const restingPlayback: Playback = { animation: "reference", frameIndex: 0 }
-const hoverAnimations = ["blink", "wink"] as const
-
-function startAnimation(animation: AnimationName): Playback {
-  return { animation, frameIndex: 0 }
-}
-
-function randomHoverAnimation(): HoverAnimationName {
-  const index = Math.floor(Math.random() * hoverAnimations.length)
-  return hoverAnimations[index]
-}
-
-function framePosition(animation: AnimationName, frameIndex: number) {
-  const row = animations[animation].row
-
-  return {
-    x: (frameIndex / (columnCount - 1)) * 100,
-    y: (row / (rowCount - 1)) * 100,
-  }
-}
-
-function usePrefersReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
-
-    function updatePreference() {
-      setPrefersReducedMotion(mediaQuery.matches)
-    }
-
-    updatePreference()
-    mediaQuery.addEventListener("change", updatePreference)
-
-    return () => mediaQuery.removeEventListener("change", updatePreference)
-  }, [])
-
-  return prefersReducedMotion
+  sprite: FaceSprite
+  url: string
+  sequence: number
+  loop: boolean
 }
 
 export function FaceAnimation({
   className,
-  withHover = false,
   withIdle = false,
+  withHover = false,
 }: FaceAnimationProps) {
-  const [playback, setPlayback] = useState<Playback>(restingPlayback)
-  const prefersReducedMotion = usePrefersReducedMotion()
+  const element = useRef<HTMLSpanElement>(null)
+  const [playback, setPlayback] = useState<Playback>()
 
   useEffect(() => {
-    if (prefersReducedMotion) {
-      setPlayback(restingPlayback)
-      return
+    const node = element.current!
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)")
+    let cancelled = false
+    let generation = 0
+    let enabled = false
+    let sequence = 0
+    let playingHover = false
+    let hoverWaiting = false
+    let nextHoverIndex = 0
+    const ready = new Map<FaceSprite, HTMLImageElement>()
+    const pending = new Set<FaceSprite>()
+
+    function play(sprite: FaceSprite, loop: boolean) {
+      const image = ready.get(sprite)
+      if (!image) return
+      setPlayback({ sprite, url: image.currentSrc, sequence: ++sequence, loop })
     }
 
-    if (playback.animation === "reference") {
-      if (withIdle) setPlayback(startAnimation("idle"))
-      return
+    function rest() {
+      playingHover = false
+      if (withIdle && ready.has(idleAnimation)) play(idleAnimation, true)
+      else setPlayback(undefined)
     }
 
-    const animation = animations[playback.animation]
-    const timer = window.setTimeout(() => {
-      setPlayback((current) => {
-        const currentAnimation = animations[current.animation]
-        const isLastFrame =
-          current.frameIndex === currentAnimation.frameCount - 1
-
-        if (!isLastFrame) {
-          return { ...current, frameIndex: current.frameIndex + 1 }
+    async function prepare(sprite: FaceSprite) {
+      if (!enabled || ready.has(sprite) || pending.has(sprite)) return
+      pending.add(sprite)
+      const current = generation
+      try {
+        const image = await loadSprite(sprite)
+        if (cancelled || current !== generation || !enabled) return
+        ready.set(sprite, image)
+        if (sprite === idleAnimation && !playingHover) rest()
+        if (sprite === hoverAnimations[nextHoverIndex] && hoverWaiting) {
+          hoverWaiting = false
+          playingHover = true
+          play(sprite, false)
+          nextHoverIndex = (nextHoverIndex + 1) % hoverAnimations.length
+          prepareNextHover()
         }
-
-        if (current.animation === "idle" && withIdle) {
-          return startAnimation("idle")
-        }
-
-        return withIdle ? startAnimation("idle") : restingPlayback
-      })
-    }, animation.frameDurationMs)
-
-    return () => window.clearTimeout(timer)
-  }, [playback, prefersReducedMotion, withIdle])
-
-  function handlePointerEnter(event: ReactPointerEvent<HTMLSpanElement>) {
-    if (event.pointerType === "touch" || !withHover || prefersReducedMotion) {
-      return
+      } catch {
+        // Keep the static face or ready animation. Retry only on a later entry.
+      } finally {
+        if (current === generation) pending.delete(sprite)
+      }
     }
 
-    setPlayback(startAnimation(randomHoverAnimation()))
-  }
+    function prepareNextHover() {
+      const next = hoverAnimations[nextHoverIndex]
+      if (next) void prepare(next)
+    }
 
-  const visiblePlayback = prefersReducedMotion ? restingPlayback : playback
-  const position = framePosition(
-    visiblePlayback.animation,
-    visiblePlayback.frameIndex
-  )
-  const style: CSSProperties = {
-    backgroundImage: `url(${faceSpriteUrl})`,
-    backgroundPosition: `${position.x}% ${position.y}%`,
-  }
+    function start() {
+      generation++
+      enabled = !motion.matches && document.readyState === "complete"
+      pending.clear()
+      setPlayback(undefined)
+      playingHover = false
+      hoverWaiting = false
+      if (!enabled) return
+      if (withIdle) {
+        if (ready.has(idleAnimation)) rest()
+        else void prepare(idleAnimation)
+      }
+      if (withHover && hoverAnimations[0]) void prepare(hoverAnimations[0])
+      nextHoverIndex = 0
+    }
+
+    function enter(event: PointerEvent) {
+      if (
+        !enabled ||
+        !withHover ||
+        event.pointerType === "touch" ||
+        motion.matches
+      )
+        return
+      const sprite = hoverAnimations[nextHoverIndex]
+      if (!sprite) return
+      if (ready.has(sprite)) {
+        playingHover = true
+        play(sprite, false)
+        nextHoverIndex = (nextHoverIndex + 1) % hoverAnimations.length
+        prepareNextHover()
+      } else {
+        const fallback = hoverAnimations.find((candidate) =>
+          ready.has(candidate)
+        )
+        if (fallback) {
+          playingHover = true
+          play(fallback, false)
+        } else {
+          hoverWaiting = true
+          void prepare(sprite)
+        }
+      }
+    }
+
+    function finish(event: AnimationEvent) {
+      if (event.animationName === "face-frames" && playingHover && enabled)
+        rest()
+    }
+
+    const timer = window.setTimeout(start, 0)
+    window.addEventListener("load", start)
+    motion.addEventListener("change", start)
+    node.addEventListener("pointerenter", enter)
+    node.addEventListener("animationend", finish)
+    return () => {
+      cancelled = true
+      window.clearTimeout(timer)
+      window.removeEventListener("load", start)
+      motion.removeEventListener("change", start)
+      node.removeEventListener("pointerenter", enter)
+      node.removeEventListener("animationend", finish)
+    }
+  }, [withIdle, withHover])
+
+  const style = playback
+    ? ({
+        "--frames": playback.sprite.frameCount,
+        "--duration": `${playback.sprite.frameCount * playback.sprite.frameDurationMs}ms`,
+        "--iterations": playback.loop ? "infinite" : 1,
+      } as CSSProperties)
+    : undefined
 
   return (
     <span
+      ref={element}
       aria-hidden="true"
-      className={["bg-no-repeat bg-size-[900%_400%]", className]
-        .filter(Boolean)
-        .join(" ")}
-      onPointerEnter={handlePointerEnter}
+      className={["face-animation", className].filter(Boolean).join(" ")}
       style={style}
-    />
+    >
+      <img
+        className="face-static"
+        src={imageUrl(staticSource, 40, metadata[staticSource].version)}
+        srcSet={imageCandidates(staticSource)}
+        width={40}
+        height={40}
+        alt=""
+      />
+      {playback && (
+        <span className="face-viewport" key={playback.sequence}>
+          <img className="face-strip" src={playback.url} alt="" />
+        </span>
+      )}
+    </span>
   )
 }
