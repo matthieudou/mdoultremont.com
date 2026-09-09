@@ -63,6 +63,7 @@ test("plays the first hover after an early pointer entry once it is decoded", as
   )
   await page.goto("/")
   const home = page.getByRole("link", { name: /Matthieu.*home/ })
+  await page.waitForTimeout(100)
   await home.locator("span").first().hover()
   release()
   await expect(home.locator("img").last()).toHaveAttribute("src", /blink\.png/)
