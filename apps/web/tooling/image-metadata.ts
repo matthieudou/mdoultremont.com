@@ -13,6 +13,7 @@ export async function readImageMetadata({ root }: Options) {
   for (const directory of [
     "public/media/profile",
     "public/media/photography",
+    "public/media/brand/face",
   ]) {
     await collect(join(root, directory), root, result)
   }
